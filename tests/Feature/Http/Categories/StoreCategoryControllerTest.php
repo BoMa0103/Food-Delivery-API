@@ -13,7 +13,7 @@ class StoreCategoryControllerTest extends TestCase
     {
         $model = CompanyGenerator::generate();
         $dto = StoreCategoryDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
+            'name' => Random::generate(6, 'a-z'),
             'company_id' => $model->id,
         ]);
         $response = $this->post(route('categories.store'), [
@@ -30,7 +30,7 @@ class StoreCategoryControllerTest extends TestCase
     {
         $model = CompanyGenerator::generate();
         $dto = StoreCategoryDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
+            'name' => Random::generate(6, 'a-z'),
             'company_id' => $model->id,
         ]);
         $response = $this->post(route('categories.store'), [
@@ -46,7 +46,7 @@ class StoreCategoryControllerTest extends TestCase
     {
         $model = CompanyGenerator::generate();
         $dto = StoreCategoryDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
+            'name' => Random::generate(6, 'a-z'),
             'company_id' => $model->id,
         ]);
         $response = $this->post(route('categories.store'), [

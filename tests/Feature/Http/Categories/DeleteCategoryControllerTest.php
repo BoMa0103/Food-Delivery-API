@@ -18,7 +18,7 @@ class DeleteCategoryControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function testOrderDoesNotExistExpectsSuccess(): void
+    public function testCategoryDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(2, '0-9'),
@@ -27,7 +27,7 @@ class DeleteCategoryControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(2, 'a-z'),

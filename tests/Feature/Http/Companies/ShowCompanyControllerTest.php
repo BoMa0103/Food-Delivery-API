@@ -27,7 +27,7 @@ class ShowCompanyControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('companies.show', [
             'company' => Random::generate(2, 'a-z'),

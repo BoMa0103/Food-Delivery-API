@@ -32,9 +32,8 @@ class UpdateCompanyControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
-        $order = CompanyGenerator::generate();
         $dto = UpdateCompanyDTO::fromArray([
             'name' => Random::generate(6, '1-9'),
             'address' => Random::generate(20, 'a-z'),

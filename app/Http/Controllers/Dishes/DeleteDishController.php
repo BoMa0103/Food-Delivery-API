@@ -9,7 +9,7 @@ class DeleteDishController extends BaseDishController
 {
     public function __invoke(int $id): JsonResponse
     {
-        $dish = $this->getDishesService()->delete($id);
+        $this->getDishesService()->delete($id);
 
         return response()->json([
             'message' => 'ok',

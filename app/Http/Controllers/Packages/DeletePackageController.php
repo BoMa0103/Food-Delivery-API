@@ -9,7 +9,7 @@ class DeletePackageController extends BasePackageController
 {
     public function __invoke(int $id): JsonResponse
     {
-        $package = $this->getPackagesService()->delete($id);
+        $this->getPackagesService()->delete($id);
 
         return response()->json([
             'message' => 'ok',

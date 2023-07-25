@@ -27,7 +27,7 @@ class ShowOrderControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('orders.show', [
             'order' => Random::generate(2, 'a-z'),

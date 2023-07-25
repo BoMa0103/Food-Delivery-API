@@ -20,6 +20,10 @@ use App\Http\Controllers\Packages\DeletePackageController;
 use App\Http\Controllers\Packages\ShowPackageController;
 use App\Http\Controllers\Packages\StorePackageController;
 use App\Http\Controllers\Packages\UpdatePackageController;
+use App\Http\Controllers\Users\DeleteUserController;
+use App\Http\Controllers\Users\ShowUserController;
+use App\Http\Controllers\Users\StoreUserController;
+use App\Http\Controllers\Users\UpdateUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +49,7 @@ Route::put('/companies/{company}', UpdateCompanyController::class)
 Route::post('/companies', StoreCompanyController::class)
     ->name('companies.store');
 
+
 Route::get('/categories/{category}', ShowCategoryController::class)
     ->name('categories.show')
     ->whereNumber('category');
@@ -56,6 +61,7 @@ Route::put('/categories/{category}', UpdateCategoryController::class)
     ->whereNumber('category');
 Route::post('/categories', StoreCategoryController::class)
     ->name('categories.store');
+
 
 Route::get('/dishes/{dish}', ShowDishController::class)
     ->name('dishes.show')
@@ -69,6 +75,7 @@ Route::put('/dishes/{dish}', UpdateDishController::class)
 Route::post('/dishes', StoreDishController::class)
     ->name('dishes.store');
 
+
 Route::get('/orders/{order}', ShowOrderController::class)
     ->name('orders.show')
     ->whereNumber('order');
@@ -81,6 +88,7 @@ Route::put('/orders/{order}', UpdateOrderController::class)
 Route::post('/orders', StoreOrderController::class)
     ->name('orders.store');
 
+
 Route::get('/packages/{package}', ShowPackageController::class)
     ->name('packages.show')
     ->whereNumber('package');
@@ -92,3 +100,16 @@ Route::put('/packages/{package}', UpdatePackageController::class)
     ->whereNumber('package');
 Route::post('/packages', StorePackageController::class)
     ->name('packages.store');
+
+
+Route::get('/users/{user}', ShowUserController::class)
+    ->name('users.show')
+    ->whereNumber('user');
+Route::delete('/users/{user}', DeleteUserController::class)
+    ->name('users.delete')
+    ->whereNumber('user');
+Route::put('/users/{user}', UpdateUserController::class)
+    ->name('users.update')
+    ->whereNumber('user');
+Route::post('/users', StoreUserController::class)
+    ->name('users.store');

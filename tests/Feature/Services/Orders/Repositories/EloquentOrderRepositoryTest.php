@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
 use Tests\Generators\OrderGenerator;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
 class EloquentOrderRepositoryTest extends TestCase
@@ -37,7 +38,8 @@ class EloquentOrderRepositoryTest extends TestCase
 
     public function testCreateExpectsSuccess():void
     {
-        $model = CompanyGenerator::generate();
+        $company = CompanyGenerator::generate();
+        $user = UserGenerator::generate();
         $dto = StoreOrderDTO::fromArray([
             'number' => Random::generate(6, '1-9'),
             'cart_items' => json_encode([
@@ -46,7 +48,10 @@ class EloquentOrderRepositoryTest extends TestCase
                     'count' => Random::generate(2, '0-9'),
                 ],
             ]),
-            'company_id' => $model->id,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'deliveryType' => Random::generate(1, '1-2'),
+            'deliveryTime' => 0,
         ]);
         $this->getEloquentOrderRepository()->store($dto);
 
@@ -67,6 +72,9 @@ class EloquentOrderRepositoryTest extends TestCase
                 ],
             ]),
             'company_id' => $order->company_id,
+            'user_id' => $order->user_id,
+            'deliveryType' => Random::generate(1, '1-2'),
+            'deliveryTime' => 0,
         ]);
         $oldCompanyId = $order->company_id;
         $oldCartItems = $order->cart_items;

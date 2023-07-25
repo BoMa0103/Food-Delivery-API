@@ -9,7 +9,7 @@ class DeleteCategoryController extends BaseCategoryController
 {
     public function __invoke(int $id): JsonResponse
     {
-        $category = $this->getCategoriesService()->delete($id);
+        $this->getCategoriesService()->delete($id);
 
         return response()->json([
             'message' => 'ok',

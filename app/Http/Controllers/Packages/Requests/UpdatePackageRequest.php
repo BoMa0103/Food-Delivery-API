@@ -10,10 +10,10 @@ class UpdatePackageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'price' => 'numeric',
-            'description' => 'string',
-            'company_id' => 'integer',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'company_id' => 'required|integer',
         ];
     }
 

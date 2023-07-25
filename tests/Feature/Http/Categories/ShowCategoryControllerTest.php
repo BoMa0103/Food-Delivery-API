@@ -27,7 +27,7 @@ class ShowCategoryControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('categories.show', [
             'category' => Random::generate(2, 'a-z'),

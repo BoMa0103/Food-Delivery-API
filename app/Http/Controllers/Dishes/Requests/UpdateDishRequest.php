@@ -10,10 +10,10 @@ class UpdateDishRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'description' => 'string',
-            'price' => 'numeric',
-            'category_id' => 'integer'
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|integer'
         ];
     }
 

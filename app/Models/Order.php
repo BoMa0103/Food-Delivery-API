@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @property array $cart_items
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCartItems($value)
+ * @property int $user_id
+ * @property int $deliveryType
+ * @property int $deliveryTime
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -37,6 +44,11 @@ class Order extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     protected $casts = [

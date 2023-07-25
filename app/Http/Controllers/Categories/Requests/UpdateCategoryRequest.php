@@ -10,8 +10,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'company_id' => 'integer',
+            'name' => 'required|string',
+            'company_id' => 'required|integer',
         ];
     }
 

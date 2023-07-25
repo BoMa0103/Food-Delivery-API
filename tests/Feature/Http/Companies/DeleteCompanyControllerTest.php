@@ -18,16 +18,16 @@ class DeleteCompanyControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function testOrderDoesNotExistExpectsSuccess(): void
+    public function testCompanyDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('companies.delete', [
-            'company' => Random::generate(2, '0-9'),
+            'company' => Random::generate(2, '1-9'),
         ]));
 
         $response->assertNoContent();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('companies.delete', [
             'company' => Random::generate(2, 'a-z'),

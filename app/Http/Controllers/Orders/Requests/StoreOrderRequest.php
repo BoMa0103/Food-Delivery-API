@@ -13,6 +13,9 @@ class StoreOrderRequest extends FormRequest
         return [
             'company_id' => 'required|integer',
             'cart_items' => 'required|string',
+            'user_id' => 'required|integer',
+            'deliveryType' => 'required|integer',
+            'deliveryTime' => 'required|integer',
         ];
     }
 
@@ -22,6 +25,9 @@ class StoreOrderRequest extends FormRequest
             'number' => Random::generate(6, '1-9'),
             'company_id' => $this->validated('company_id'),
             'cart_items' => $this->validated('cart_items'),
+            'user_id' => $this->validated('user_id'),
+            'deliveryType' => $this->validated('deliveryType'),
+            'deliveryTime' => $this->validated('deliveryTime'),
         ]);
     }
 }

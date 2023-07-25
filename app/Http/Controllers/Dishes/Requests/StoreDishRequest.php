@@ -11,7 +11,7 @@ class StoreDishRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'string',
+            'description' => 'required|string',
             'price' => 'required|numeric',
             'category_id' => 'required|integer'
         ];

@@ -12,7 +12,7 @@ class StorePackageRequest extends FormRequest
         return [
             'name' => 'required|string',
             'price' => 'required|numeric',
-            'description' => 'string',
+            'description' => 'required|string',
             'company_id' => 'required|integer',
         ];
     }

@@ -12,6 +12,8 @@ use App\Services\Orders\Repositories\EloquentOrderRepository;
 use App\Services\Orders\Repositories\OrderRepository;
 use App\Services\Packages\Repositories\EloquentPackageRepository;
 use App\Services\Packages\Repositories\PackageRepository;
+use App\Services\Users\Repositories\EloquentUserRepository;
+use App\Services\Users\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DishRepository::class, EloquentDishRepository::class);
         $this->app->bind(OrderRepository::class, EloquentOrderRepository::class);
         $this->app->bind(PackageRepository::class, EloquentPackageRepository::class);
+        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
     }
 
     /**

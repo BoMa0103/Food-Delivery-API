@@ -18,7 +18,7 @@ class DeleteOrderControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function testOrderDoesNotExistExpectsSuccess(): void
+    public function testOrderDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('orders.delete', [
             'order' => Random::generate(2, '0-9'),
@@ -27,7 +27,7 @@ class DeleteOrderControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('orders.delete', [
             'order' => Random::generate(2, 'a-z'),

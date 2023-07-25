@@ -10,11 +10,11 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'address' => 'string',
-            'rating' => 'numeric',
-            'status' => 'integer',
-            'description' => 'string',
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'rating' => 'required|numeric',
+            'status' => 'required|integer',
+            'description' => 'required|string',
         ];
     }
 

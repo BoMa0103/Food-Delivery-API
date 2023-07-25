@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @mixin \Eloquent
  */
 class Company extends Model
@@ -43,5 +45,10 @@ class Company extends Model
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

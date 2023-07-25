@@ -28,6 +28,8 @@ class OrderFactory extends Factory
                     'count' => $this->faker->numberBetween(1, 10),
                 ]
             ],
+            'deliveryType' => $this->faker->numberBetween(1,2),
+            'deliveryTime' => 0,
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Dish;
 use App\Models\Order;
 use App\Models\Package;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,8 +20,9 @@ class DatabaseSeeder extends Seeder
     {
         $company = Company::factory()->create();
         $category = Category::factory()->for($company)->create();
+        $user = User::factory()->create();
         Dish::factory(10)->for($category)->create();
         Package::factory(4)->for($company)->create();
-        Order::factory(2)->for($company)->create();
+        Order::factory(2)->for($company)->for($user)->create();
     }
 }

@@ -13,7 +13,7 @@ class UpdateCategoryControllerTest extends TestCase
     {
         $category = CategoryGenerator::generate();
         $dto = UpdateCategoryDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
+            'name' => Random::generate(6, 'a-z'),
             'company_id' => $category->company_id,
         ]);
         $response = $this->put(route('categories.update', ['category' => $category->id]), [
@@ -26,11 +26,27 @@ class UpdateCategoryControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testIdIsNotIntExpectsSuccess(): void
+    public function testFieldDoesNotExistExpectsUnprocessable(): void
     {
         $category = CategoryGenerator::generate();
         $dto = UpdateCategoryDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
+            'name' => Random::generate(6, 'a-z'),
+            'company_id' => $category->company_id,
+        ]);
+        $response = $this->put(route('categories.update', ['category' => $category->id]), [
+            'name' => $dto->getName(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
+
+    public function testIdIsNotIntExpectsNotFound(): void
+    {
+        $category = CategoryGenerator::generate();
+        $dto = UpdateCategoryDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
             'company_id' => $category->company_id,
         ]);
         $response = $this->put(route('categories.update', ['category' => Random::generate(2, 'a-z')]), [

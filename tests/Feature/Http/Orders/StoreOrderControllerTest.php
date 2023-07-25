@@ -5,13 +5,15 @@ namespace Tests\Feature\Http\Orders;
 use App\Services\Orders\DTO\StoreOrderDTO;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
 class StoreOrderControllerTest extends TestCase
 {
     public function testExpectsSuccess(): void
     {
-        $model = CompanyGenerator::generate();
+        $company = CompanyGenerator::generate();
+        $user = UserGenerator::generate();
         $dto = StoreOrderDTO::fromArray([
             'number' => Random::generate(6, '1-9'),
             'cart_items' => json_encode([
@@ -20,13 +22,19 @@ class StoreOrderControllerTest extends TestCase
                     'count' => Random::generate(2, '0-9'),
                 ],
             ]),
-            'company_id' => $model->id,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'deliveryType' => Random::generate(1, '1-2'),
+            'deliveryTime' => 0,
         ]);
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
             ),
             'company_id' => $dto->getCompanyId(),
+            'user_id' => $dto->getUserId(),
+            'deliveryType' => $dto->getDeliveryType(),
+            'deliveryTime' => $dto->getDeliveryTime(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -36,7 +44,8 @@ class StoreOrderControllerTest extends TestCase
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
     {
-        $model = CompanyGenerator::generate();
+        $company = CompanyGenerator::generate();
+        $user = UserGenerator::generate();
         $dto = StoreOrderDTO::fromArray([
             'number' => Random::generate(6, '1-9'),
             'cart_items' => json_encode([
@@ -45,12 +54,17 @@ class StoreOrderControllerTest extends TestCase
                     'count' => Random::generate(2, '0-9'),
                 ],
             ]),
-            'company_id' => $model->id,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'deliveryType' => Random::generate(1, '1-2'),
+            'deliveryTime' => 0,
         ]);
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
             ),
+            'company_id' => $dto->getCompanyId(),
+            'deliveryTime' => $dto->getDeliveryTime(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -60,7 +74,8 @@ class StoreOrderControllerTest extends TestCase
 
     public function testFieldTypeIsNotCorrectExpectsUnprocessable(): void
     {
-        $model = CompanyGenerator::generate();
+        $company = CompanyGenerator::generate();
+        $user = CompanyGenerator::generate();
         $dto = StoreOrderDTO::fromArray([
             'number' => Random::generate(6, '1-9'),
             'cart_items' => json_encode([
@@ -69,13 +84,19 @@ class StoreOrderControllerTest extends TestCase
                     'count' => Random::generate(2, '0-9'),
                 ],
             ]),
-            'company_id' => $model->id,
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'deliveryType' => Random::generate(1, '1-2'),
+            'deliveryTime' => 0,
         ]);
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
             ),
             'company_id' => Random::generate(2, 'a-z'),
+            'user_id' => $dto->getUserId(),
+            'deliveryType' => $dto->getDeliveryType(),
+            'deliveryTime' => $dto->getDeliveryTime(),
         ], [
             'Accept' => 'application/json',
         ]);

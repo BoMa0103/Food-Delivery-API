@@ -9,7 +9,7 @@ class DeleteCompanyController extends BaseCompanyController
 {
     public function __invoke(int $id): JsonResponse
     {
-        $company = $this->getCompaniesService()->delete($id);
+        $this->getCompaniesService()->delete($id);
 
         return response()->json([
             'message' => 'ok',
