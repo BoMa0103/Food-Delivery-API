@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
- * @mixin \Eloquent
  */
 class Order extends Model
 {
