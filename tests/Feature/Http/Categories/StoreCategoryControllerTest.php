@@ -58,4 +58,20 @@ class StoreCategoryControllerTest extends TestCase
 
         $response->assertUnprocessable();
     }
+
+    public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
+    {
+        $dto = StoreCategoryDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
+            'company_id' => Random::generate(2, '1-9'),
+        ]);
+        $response = $this->post(route('categories.store'), [
+            'name' => $dto->getName(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
 }

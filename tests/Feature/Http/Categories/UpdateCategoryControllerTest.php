@@ -58,4 +58,21 @@ class UpdateCategoryControllerTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
+    {
+        $category = CategoryGenerator::generate();
+        $dto = UpdateCategoryDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
+            'company_id' => Random::generate(2, '1-9'),
+        ]);
+        $response = $this->put(route('categories.update', ['category' => $category->id]), [
+            'name' => $dto->getName(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
 }

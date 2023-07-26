@@ -11,11 +11,13 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id' => 'required|integer',
+            'company_id' => 'required|integer|exists:companies,id',
             'cart_items' => 'required|string',
-            'user_id' => 'required|integer',
+            'user_id' => 'required|integer|exists:users,id',
             'deliveryType' => 'required|integer',
             'deliveryTime' => 'required|integer',
+            'deliveryAddressStreet' => 'required|string',
+            'deliveryAddressHouse' => 'required|string',
         ];
     }
 
@@ -28,6 +30,8 @@ class StoreOrderRequest extends FormRequest
             'user_id' => $this->validated('user_id'),
             'deliveryType' => $this->validated('deliveryType'),
             'deliveryTime' => $this->validated('deliveryTime'),
+            'deliveryAddressStreet' => $this->validated('deliveryAddressStreet'),
+            'deliveryAddressHouse' => $this->validated('deliveryAddressHouse'),
         ]);
     }
 }

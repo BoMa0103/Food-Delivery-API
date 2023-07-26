@@ -13,7 +13,7 @@ class UpdatePackageRequest extends FormRequest
             'name' => 'required|string',
             'price' => 'required|numeric',
             'description' => 'required|string',
-            'company_id' => 'required|integer',
+            'company_id' => 'required|integer|exists:companies,id',
         ];
     }
 

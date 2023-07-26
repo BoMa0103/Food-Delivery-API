@@ -13,7 +13,7 @@ class StoreDishRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'category_id' => 'required|integer'
+            'category_id' => 'required|integer|exists:categories,id'
         ];
     }
 

@@ -52,6 +52,8 @@ class EloquentOrderRepositoryTest extends TestCase
             'user_id' => $user->id,
             'deliveryType' => Random::generate(1, '1-2'),
             'deliveryTime' => 0,
+            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
+            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
         ]);
         $this->getEloquentOrderRepository()->store($dto);
 
@@ -75,6 +77,8 @@ class EloquentOrderRepositoryTest extends TestCase
             'user_id' => $order->user_id,
             'deliveryType' => Random::generate(1, '1-2'),
             'deliveryTime' => 0,
+            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
+            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
         ]);
         $oldCompanyId = $order->company_id;
         $oldCartItems = $order->cart_items;

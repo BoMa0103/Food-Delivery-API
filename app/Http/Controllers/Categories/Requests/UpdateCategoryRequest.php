@@ -11,7 +11,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'company_id' => 'required|integer',
+            'company_id' => 'required|integer|exists:companies,id',
         ];
     }
 

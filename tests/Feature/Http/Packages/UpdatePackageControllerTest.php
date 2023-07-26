@@ -50,4 +50,25 @@ class UpdatePackageControllerTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
+    {
+        $package = PackageGenerator::generate();
+        $dto = UpdatePackageDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
+            'description' => Random::generate(20, 'a-z'),
+            'price' => Random::generate(3, '0-9'),
+            'company_id' => Random::generate(2, '1-9'),
+        ]);
+        $response = $this->put(route('packages.update', ['package' => $package->id]), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
 }

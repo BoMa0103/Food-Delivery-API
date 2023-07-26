@@ -10,7 +10,25 @@ class UpdateOrderDTO
         protected int $user_id,
         protected int $deliveryType,
         protected int $deliveryTime,
+        protected string $deliveryAddressStreet,
+        protected string $deliveryAddressHouse,
     ){
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeliveryAddressStreet(): string
+    {
+        return $this->deliveryAddressStreet;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeliveryAddressHouse(): string
+    {
+        return $this->deliveryAddressHouse;
     }
 
     public function getUserId(): int
@@ -46,6 +64,8 @@ class UpdateOrderDTO
             'user_id' => $this->getUserId(),
             'deliveryType' => $this->getDeliveryType(),
             'deliveryTime' => $this->getDeliveryTime(),
+            'deliveryAddressStreet' => $this->getDeliveryAddressStreet(),
+            'deliveryAddressHouse' => $this->getDeliveryAddressHouse(),
         ];
     }
 
@@ -57,6 +77,8 @@ class UpdateOrderDTO
             $data['user_id'],
             $data['deliveryType'],
             $data['deliveryTime'],
+            $data['deliveryAddressStreet'],
+            $data['deliveryAddressHouse'],
         );
     }
 }

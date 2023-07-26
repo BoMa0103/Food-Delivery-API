@@ -50,4 +50,25 @@ class UpdateDishControllerTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
+    {
+        $dish = DishGenerator::generate();
+        $dto = UpdateDishDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
+            'description' => Random::generate(20, 'a-z'),
+            'price' => Random::generate(3, '0-9'),
+            'category_id' => Random::generate(2, '1-9'),
+        ]);
+        $response = $this->put(route('dishes.update', ['dish' => $dish->id]), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'category_id' => $dto->getCategoryId(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
 }

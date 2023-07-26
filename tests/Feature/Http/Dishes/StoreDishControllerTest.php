@@ -68,4 +68,24 @@ class StoreDishControllerTest extends TestCase
 
         $response->assertUnprocessable();
     }
+
+    public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
+    {
+        $dto = StoreDishDTO::fromArray([
+            'name' => Random::generate(6, 'a-z'),
+            'description' => Random::generate(20, 'a-z'),
+            'price' => Random::generate(3, '0-9'),
+            'category_id' => Random::generate(2, '1-9'),
+        ]);
+        $response = $this->post(route('categories.store'), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'category_id' => $dto->getCategoryId(),
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnprocessable();
+    }
 }

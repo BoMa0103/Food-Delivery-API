@@ -1,11 +1,11 @@
 <?php
 
+use App\Services\Orders\DTO\OrderDTO;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
@@ -15,7 +15,10 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->integer('deliveryType');
-            $table->integer('deliveryTime');
+            // як краще зберігати час
+            $table->integer('deliveryTime')->default(OrderDTO::DELIVERY_TIME_AS_SOON_AS_POSSIBLE->value);
+            $table->string('deliveryAddressStreet')->nullable();
+            $table->string('deliveryAddressHouse')->nullable();
             $table->timestamps();
         });
     }
