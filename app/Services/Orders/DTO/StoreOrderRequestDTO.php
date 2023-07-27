@@ -2,7 +2,7 @@
 
 namespace App\Services\Orders\DTO;
 
-class UpdateOrderDTO
+class StoreOrderRequestDTO
 {
     public function __construct(
         protected array  $cart_items,
@@ -32,31 +32,49 @@ class UpdateOrderDTO
         return $this->deliveryAddressHouse;
     }
 
+    /**
+     * @return int
+     */
     public function getUserId(): int
     {
         return $this->user_id;
     }
 
+    /**
+     * @return int
+     */
     public function getDeliveryType(): int
     {
         return $this->deliveryType;
     }
 
+    /**
+     * @return int
+     */
     public function getDeliveryTime(): int
     {
         return $this->deliveryTime;
     }
 
-    public function getCompanyId(): int
-    {
-        return $this->company_id;
-    }
-
+    /**
+     * @return array
+     */
     public function getCartItems(): array
     {
         return $this->cart_items;
     }
 
+    /**
+     * @return int
+     */
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
+    }
+
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -70,7 +88,7 @@ class UpdateOrderDTO
         ];
     }
 
-    public static function fromArray(array $data): UpdateOrderDTO
+    public static function fromArray(array $data): StoreOrderRequestDTO
     {
         return new self(
             json_decode($data['cart_items'], true),

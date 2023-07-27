@@ -2,10 +2,9 @@
 
 namespace App\Services\Orders\DTO;
 
-class StoreOrderDTO
+class UpdateOrderRequestDTO
 {
     public function __construct(
-        protected int    $number,
         protected array  $cart_items,
         protected int    $company_id,
         protected int    $user_id,
@@ -33,61 +32,34 @@ class StoreOrderDTO
         return $this->deliveryAddressHouse;
     }
 
-    /**
-     * @return int
-     */
     public function getUserId(): int
     {
         return $this->user_id;
     }
 
-    /**
-     * @return int
-     */
     public function getDeliveryType(): int
     {
         return $this->deliveryType;
     }
 
-    /**
-     * @return int
-     */
     public function getDeliveryTime(): int
     {
         return $this->deliveryTime;
     }
 
-    /**
-     * @return int
-     */
-    public function getNumber(): int
-    {
-        return $this->number;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCartItems(): array
-    {
-        return $this->cart_items;
-    }
-
-    /**
-     * @return int
-     */
     public function getCompanyId(): int
     {
         return $this->company_id;
     }
 
-    /**
-     * @return array
-     */
+    public function getCartItems(): array
+    {
+        return $this->cart_items;
+    }
+
     public function toArray(): array
     {
         return [
-            'number' => $this->getNumber(),
             'cart_items' => $this->getCartItems(),
             'company_id' => $this->getCompanyId(),
             'user_id' => $this->getUserId(),
@@ -98,10 +70,9 @@ class StoreOrderDTO
         ];
     }
 
-    public static function fromArray(array $data): StoreOrderDTO
+    public static function fromArray(array $data): UpdateOrderRequestDTO
     {
         return new self(
-            $data['number'],
             json_decode($data['cart_items'], true),
             $data['company_id'],
             $data['user_id'],

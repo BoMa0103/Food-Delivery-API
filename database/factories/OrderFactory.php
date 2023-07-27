@@ -30,6 +30,15 @@ class OrderFactory extends Factory
             ],
             'deliveryType' => $this->faker->numberBetween(1,2),
             'deliveryTime' => 0,
+            'prices' => [
+                'itemsPrice' => $this->faker->randomFloat(2, 1, 1000),
+            ],
+            'user' => [
+                'name' => 'name',
+            ],
+            'package' => [
+                'name' => 'name',
+            ]
         ];
     }
 }

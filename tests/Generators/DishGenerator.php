@@ -14,6 +14,8 @@ class DishGenerator
         $company = Company::factory()->create();
         $category = Category::factory()->for($company)->create();
         $package = Package::factory()->for($company)->create();
+        $company->setAttribute('base_package_id', $package->id);
+        $company->save();
         return Dish::factory()->for($category)->for($package)->create($data);
     }
 

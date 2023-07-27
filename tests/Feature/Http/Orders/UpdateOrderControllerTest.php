@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Http\Orders;
 
-use App\Services\Orders\DTO\UpdateOrderDTO;
+use App\Services\Orders\DTO\UpdateOrderRequestDTO;
 use Nette\Utils\Random;
+use Tests\Generators\DishGenerator;
 use Tests\Generators\OrderGenerator;
 use Tests\TestCase;
 
@@ -12,8 +13,15 @@ class UpdateOrderControllerTest extends TestCase
     public function testExpectsSuccess(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray(
-            OrderGenerator::updateOrderDTOArrayGenerate([
+        $dish = DishGenerator::generate();
+        $dto = UpdateOrderRequestDTO::fromArray(
+            OrderGenerator::updateOrderRequestDTOArrayGenerate([
+                'cart_items' => json_encode([
+                    [
+                        'id' => $dish->id,
+                        'count' => fake()->numberBetween(1, 20),
+                    ],
+                ]),
                 'company_id' => $order->company_id,
                 'user_id' => $order->user_id,
             ])
@@ -38,8 +46,15 @@ class UpdateOrderControllerTest extends TestCase
     public function testIdIsNotIntExpectsNotFound(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray(
-            OrderGenerator::updateOrderDTOArrayGenerate([
+        $dish = DishGenerator::generate();
+        $dto = UpdateOrderRequestDTO::fromArray(
+            OrderGenerator::updateOrderRequestDTOArrayGenerate([
+                'cart_items' => json_encode([
+                    [
+                        'id' => $dish->id,
+                        'count' => fake()->numberBetween(1, 20),
+                    ],
+                ]),
                 'company_id' => $order->company_id,
                 'user_id' => $order->user_id,
             ])
@@ -64,8 +79,8 @@ class UpdateOrderControllerTest extends TestCase
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray(
-            OrderGenerator::updateOrderDTOArrayGenerate([
+        $dto = UpdateOrderRequestDTO::fromArray(
+            OrderGenerator::updateOrderRequestDTOArrayGenerate([
                 'company_id' => Random::generate(4, '1-9'),
                 'user_id' => Random::generate(4, '1-9'),
             ])

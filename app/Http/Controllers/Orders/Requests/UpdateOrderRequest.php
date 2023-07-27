@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Orders\Requests;
 
-use App\Services\Orders\DTO\UpdateOrderDTO;
+use App\Services\Orders\DTO\UpdateOrderRequestDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateOrderRequest extends FormRequest
@@ -10,7 +10,7 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cart_items' => 'required|string',
+            'cart_items' => 'required|json',
             'company_id' => 'required|integer|exists:companies,id',
             'user_id' => 'required|integer|exists:users,id',
             'deliveryType' => 'required|integer',
@@ -20,9 +20,9 @@ class UpdateOrderRequest extends FormRequest
         ];
     }
 
-    public function getDTO(): UpdateOrderDTO
+    public function getDTO(): UpdateOrderRequestDTO
     {
-        return UpdateOrderDTO::fromArray([
+        return UpdateOrderRequestDTO::fromArray([
             'cart_items' => $this->validated('cart_items'),
             'company_id' => $this->validated('company_id'),
             'user_id' => $this->validated('user_id'),

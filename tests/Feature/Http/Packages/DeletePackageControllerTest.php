@@ -21,7 +21,7 @@ class DeletePackageControllerTest extends TestCase
     public function testPackageDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('packages.delete', [
-            'package' => Random::generate(2, '0-9'),
+            'package' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

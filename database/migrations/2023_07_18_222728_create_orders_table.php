@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('number');
+            $table->integer('number')->unique();
             $table->json('cart_items');
             $table->foreignId('company_id')->constrained();
             $table->foreignId('user_id')->constrained();
@@ -20,6 +20,9 @@ return new class extends Migration {
                 ->default(OrderDTO::DELIVERY_TIME_AS_SOON_AS_POSSIBLE->value);
             $table->string('deliveryAddressStreet')->nullable();
             $table->string('deliveryAddressHouse')->nullable();
+            $table->json('prices');
+            $table->json('user');
+            $table->json('package');
             $table->timestamps();
         });
     }

@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Http\Orders;
 
-use App\Services\Orders\DTO\StoreOrderDTO;
+use App\Services\Orders\DTO\StoreOrderRequestDTO;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
+use Tests\Generators\DishGenerator;
 use Tests\Generators\OrderGenerator;
 use Tests\Generators\UserGenerator;
 use Tests\TestCase;
@@ -13,11 +14,17 @@ class StoreOrderControllerTest extends TestCase
 {
     public function testExpectsSuccess(): void
     {
-        $company = CompanyGenerator::generate();
         $user = UserGenerator::generate();
-        $dto = StoreOrderDTO::fromArray(
-            OrderGenerator::storeOrderDTOArrayGenerate([
-                'company_id' => $company->id,
+        $dish = DishGenerator::generate();
+        $dto = StoreOrderRequestDTO::fromArray(
+            OrderGenerator::storeOrderRequestDTOArrayGenerate([
+                'cart_items' => json_encode([
+                        [
+                            'id' => $dish->id,
+                            'count' => fake()->numberBetween(1, 20),
+                        ],
+                    ]),
+                'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
@@ -40,11 +47,17 @@ class StoreOrderControllerTest extends TestCase
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
     {
-        $company = CompanyGenerator::generate();
         $user = UserGenerator::generate();
-        $dto = StoreOrderDTO::fromArray(
-            OrderGenerator::storeOrderDTOArrayGenerate([
-                'company_id' => $company->id,
+        $dish = DishGenerator::generate();
+        $dto = StoreOrderRequestDTO::fromArray(
+            OrderGenerator::storeOrderRequestDTOArrayGenerate([
+                'cart_items' => json_encode([
+                    [
+                        'id' => $dish->id,
+                        'count' => fake()->numberBetween(1, 20),
+                    ],
+                ]),
+                'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
@@ -65,11 +78,17 @@ class StoreOrderControllerTest extends TestCase
 
     public function testFieldTypeIsNotCorrectExpectsUnprocessable(): void
     {
-        $company = CompanyGenerator::generate();
         $user = CompanyGenerator::generate();
-        $dto = StoreOrderDTO::fromArray(
-            OrderGenerator::storeOrderDTOArrayGenerate([
-                'company_id' => $company->id,
+        $dish = DishGenerator::generate();
+        $dto = StoreOrderRequestDTO::fromArray(
+            OrderGenerator::storeOrderRequestDTOArrayGenerate([
+                'cart_items' => json_encode([
+                    [
+                        'id' => $dish->id,
+                        'count' => fake()->numberBetween(1, 20),
+                    ],
+                ]),
+                'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
@@ -92,8 +111,8 @@ class StoreOrderControllerTest extends TestCase
 
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
-        $dto = StoreOrderDTO::fromArray(
-            OrderGenerator::storeOrderDTOArrayGenerate([
+        $dto = StoreOrderRequestDTO::fromArray(
+            OrderGenerator::storeOrderRequestDTOArrayGenerate([
                 'company_id' => Random::generate(4, '1-9'),
                 'user_id' => Random::generate(4, '1-9'),
             ])

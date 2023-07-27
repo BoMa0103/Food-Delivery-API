@@ -40,6 +40,11 @@ use Illuminate\Support\Carbon;
  * @property string|null $deliveryAddressHouse
  * @method static Builder|Order whereDeliveryAddressHouse($value)
  * @method static Builder|Order whereDeliveryAddressStreet($value)
+ * @property array $prices
+ * @property array $package
+ * @method static Builder|Order wherePackage($value)
+ * @method static Builder|Order wherePrices($value)
+ * @method static Builder|Order whereUser($value)
  */
 class Order extends Model
 {
@@ -59,5 +64,8 @@ class Order extends Model
 
     protected $casts = [
         'cart_items' => 'array',
+        'prices' => 'array',
+        'user' => 'array',
+        'package' => 'array',
     ];
 }

@@ -21,7 +21,7 @@ class DeleteCategoryControllerTest extends TestCase
     public function testCategoryDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('categories.delete', [
-            'category' => Random::generate(2, '0-9'),
+            'category' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

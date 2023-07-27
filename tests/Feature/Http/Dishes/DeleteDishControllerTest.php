@@ -21,7 +21,7 @@ class DeleteDishControllerTest extends TestCase
     public function testDishDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('dishes.delete', [
-            'dish' => Random::generate(2, '0-9'),
+            'dish' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

@@ -21,7 +21,7 @@ class DeleteUserControllerTest extends TestCase
     public function testUserDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('users.delete', [
-            'user' => Random::generate(2, '0-9'),
+            'user' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

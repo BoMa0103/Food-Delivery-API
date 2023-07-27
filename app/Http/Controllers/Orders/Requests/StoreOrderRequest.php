@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Orders\Requests;
 
-use App\Services\Orders\DTO\StoreOrderDTO;
+use App\Services\Orders\DTO\StoreOrderRequestDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Nette\Utils\Random;
 
@@ -12,7 +12,7 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'company_id' => 'required|integer|exists:companies,id',
-            'cart_items' => 'required|string',
+            'cart_items' => 'required|json',
             'user_id' => 'required|integer|exists:users,id',
             'deliveryType' => 'required|integer',
             'deliveryTime' => 'required|integer',
@@ -21,10 +21,9 @@ class StoreOrderRequest extends FormRequest
         ];
     }
 
-    public function getDTO(): StoreOrderDTO
+    public function getDTO(): StoreOrderRequestDTO
     {
-        return StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
+        return StoreOrderRequestDTO::fromArray([
             'company_id' => $this->validated('company_id'),
             'cart_items' => $this->validated('cart_items'),
             'user_id' => $this->validated('user_id'),

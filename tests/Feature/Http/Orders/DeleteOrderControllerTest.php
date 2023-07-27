@@ -21,7 +21,7 @@ class DeleteOrderControllerTest extends TestCase
     public function testOrderDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('orders.delete', [
-            'order' => Random::generate(2, '0-9'),
+            'order' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

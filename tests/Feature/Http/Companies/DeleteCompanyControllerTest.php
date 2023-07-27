@@ -21,7 +21,7 @@ class DeleteCompanyControllerTest extends TestCase
     public function testCompanyDoesNotExistExpectsNoContent(): void
     {
         $response = $this->delete(route('companies.delete', [
-            'company' => Random::generate(2, '1-9'),
+            'company' => Random::generate(4, '1-9'),
         ]));
 
         $response->assertNoContent();

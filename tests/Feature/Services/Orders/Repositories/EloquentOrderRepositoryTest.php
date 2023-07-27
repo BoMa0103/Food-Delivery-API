@@ -4,7 +4,9 @@ namespace Tests\Feature\Services\Orders\Repositories;
 
 use App\Models\Order;
 use App\Services\Orders\DTO\StoreOrderDTO;
+use App\Services\Orders\DTO\StoreOrderRequestDTO;
 use App\Services\Orders\DTO\UpdateOrderDTO;
+use App\Services\Orders\DTO\UpdateOrderRequestDTO;
 use App\Services\Orders\Repositories\EloquentOrderRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nette\Utils\Random;
