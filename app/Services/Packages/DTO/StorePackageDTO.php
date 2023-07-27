@@ -6,10 +6,11 @@ class StorePackageDTO
 {
     public function __construct(
         protected string $name,
-        protected float $price,
+        protected float  $price,
         protected string $description,
-        protected int $company_id,
-    ){
+        protected int    $company_id,
+    )
+    {
     }
 
     /**

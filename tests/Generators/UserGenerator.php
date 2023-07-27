@@ -10,4 +10,22 @@ class UserGenerator
     {
         return User::factory()->create($data);
     }
+
+    public static function storeUserDTOArrayGenerate(array $data = []): array
+    {
+        return [
+            'name' => $data['name'] ?? fake()->name,
+            'email' => $data['email'] ?? fake()->email,
+            'password' => $data['password'] ?? fake()->password,
+        ];
+    }
+
+    public static function updateUserDTOArrayGenerate(array $data = []): array
+    {
+        return [
+            'name' => $data['name'] ?? fake()->name,
+            'email' => $data['email'] ?? fake()->email,
+            'password' => $data['password'] ?? fake()->password,
+        ];
+    }
 }

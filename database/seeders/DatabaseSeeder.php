@@ -21,8 +21,10 @@ class DatabaseSeeder extends Seeder
         $company = Company::factory()->create();
         $category = Category::factory()->for($company)->create();
         $user = User::factory()->create();
-        Dish::factory(10)->for($category)->create();
-        Package::factory(4)->for($company)->create();
+        $package = Package::factory()->for($company)->create();
+        Dish::factory(10)->for($category)->for($package)->create();
         Order::factory(2)->for($company)->for($user)->create();
+        $company->setAttribute('base_package_id', $package->getAttribute('id'));
+        $company->save();
     }
 }

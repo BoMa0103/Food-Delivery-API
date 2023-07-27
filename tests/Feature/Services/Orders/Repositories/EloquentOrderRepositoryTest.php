@@ -40,21 +40,12 @@ class EloquentOrderRepositoryTest extends TestCase
     {
         $company = CompanyGenerator::generate();
         $user = UserGenerator::generate();
-        $dto = StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $company->id,
-            'user_id' => $user->id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = StoreOrderDTO::fromArray(
+            OrderGenerator::storeOrderDTOArrayGenerate([
+                'company_id' => $company->id,
+                'user_id' => $user->id,
+            ])
+        );
         $this->getEloquentOrderRepository()->store($dto);
 
         $model = Order::query()->where('number', $dto->getNumber())->first();
@@ -66,20 +57,12 @@ class EloquentOrderRepositoryTest extends TestCase
     public function testUpdateExpectsSuccess():void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray([
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $order->company_id,
-            'user_id' => $order->user_id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = UpdateOrderDTO::fromArray(
+            OrderGenerator::updateOrderDTOArrayGenerate([
+                'company_id' => $order->company_id,
+                'user_id' => $order->user_id,
+            ])
+        );
         $oldCompanyId = $order->company_id;
         $oldCartItems = $order->cart_items;
         $this->getEloquentOrderRepository()->update($order, $dto);

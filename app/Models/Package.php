@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Package
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Package wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Dish> $dishes
+ * @property-read int|null $dishes_count
  * @mixin \Eloquent
  */
 class Package extends Model
@@ -41,6 +44,10 @@ class Package extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
 
+    public function dishes(): HasMany
+    {
+        return $this->hasMany(Dish::class);
     }
 }

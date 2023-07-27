@@ -12,17 +12,18 @@ class UpdateDishControllerTest extends TestCase
     public function testExpectsSuccess(): void
     {
         $dish = DishGenerator::generate();
-        $dto = UpdateDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $dish->category_id,
-        ]);
+        $dto = UpdateDishDTO::fromArray(
+            DishGenerator::updateDishDTOArrayGenerate([
+                'category_id' => $dish->category_id,
+                'package_id'  => $dish->package_id,
+            ])
+        );
         $response = $this->put(route('dishes.update', ['dish' => $dish->id]), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
             'price' => $dto->getPrice(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -33,17 +34,18 @@ class UpdateDishControllerTest extends TestCase
     public function testIdIsNotIntExpectsNotFound(): void
     {
         $dish = DishGenerator::generate();
-        $dto = UpdateDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $dish->category_id,
-        ]);
+        $dto = UpdateDishDTO::fromArray(
+            DishGenerator::updateDishDTOArrayGenerate([
+                'category_id' => $dish->category_id,
+                'package_id'  => $dish->package_id,
+            ])
+        );
         $response = $this->put(route('dishes.update', ['dish' => Random::generate(2, 'a-z')]), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
             'price' => $dto->getPrice(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -54,17 +56,18 @@ class UpdateDishControllerTest extends TestCase
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
         $dish = DishGenerator::generate();
-        $dto = UpdateDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => Random::generate(2, '1-9'),
-        ]);
+        $dto = UpdateDishDTO::fromArray(
+            DishGenerator::updateDishDTOArrayGenerate([
+                'category_id' => Random::generate(4, '1-9'),
+                'package_id'  => Random::generate(4, '1-9'),
+            ])
+        );
         $response = $this->put(route('dishes.update', ['dish' => $dish->id]), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
             'price' => $dto->getPrice(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);

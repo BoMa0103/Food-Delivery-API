@@ -7,9 +7,19 @@ class UpdateDishDTO
     public function __construct(
         protected string $name,
         protected string $description,
-        protected float $price,
-        protected int $category_id,
-    ){
+        protected float  $price,
+        protected int    $category_id,
+        protected int    $package_id,
+    )
+    {
+    }
+
+    /**
+     * @return int
+     */
+    public function getPackageId(): int
+    {
+        return $this->package_id;
     }
 
     /**
@@ -54,6 +64,7 @@ class UpdateDishDTO
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'category_id' => $this->getCategoryId(),
+            'package_id' => $this->getPackageId(),
         ];
     }
 
@@ -64,6 +75,7 @@ class UpdateDishDTO
             $data['description'],
             $data['price'],
             $data['category_id'],
+            $data['package_id'],
         );
     }
 }

@@ -7,8 +7,9 @@ class UpdateUserDTO
     public function __construct(
         protected string $name,
         protected string $email,
-        protected mixed $password,
-    ){
+        protected mixed  $password,
+    )
+    {
     }
 
     public function getName(): string

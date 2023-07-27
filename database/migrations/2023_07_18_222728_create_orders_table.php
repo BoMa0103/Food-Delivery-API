@@ -14,9 +14,10 @@ return new class extends Migration {
             $table->json('cart_items');
             $table->foreignId('company_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->integer('deliveryType');
+            $table->tinyInteger('deliveryType');
             // як краще зберігати час
-            $table->integer('deliveryTime')->default(OrderDTO::DELIVERY_TIME_AS_SOON_AS_POSSIBLE->value);
+            $table->integer('deliveryTime')
+                ->default(OrderDTO::DELIVERY_TIME_AS_SOON_AS_POSSIBLE->value);
             $table->string('deliveryAddressStreet')->nullable();
             $table->string('deliveryAddressHouse')->nullable();
             $table->timestamps();

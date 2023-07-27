@@ -5,14 +5,15 @@ namespace App\Services\Orders\DTO;
 class UpdateOrderDTO
 {
     public function __construct(
-        protected array $cart_items,
-        protected int $company_id,
-        protected int $user_id,
-        protected int $deliveryType,
-        protected int $deliveryTime,
+        protected array  $cart_items,
+        protected int    $company_id,
+        protected int    $user_id,
+        protected int    $deliveryType,
+        protected int    $deliveryTime,
         protected string $deliveryAddressStreet,
         protected string $deliveryAddressHouse,
-    ){
+    )
+    {
     }
 
     /**

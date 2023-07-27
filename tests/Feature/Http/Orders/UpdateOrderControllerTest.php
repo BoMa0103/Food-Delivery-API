@@ -12,20 +12,12 @@ class UpdateOrderControllerTest extends TestCase
     public function testExpectsSuccess(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray([
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $order->company_id,
-            'user_id' => $order->user_id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = UpdateOrderDTO::fromArray(
+            OrderGenerator::updateOrderDTOArrayGenerate([
+                'company_id' => $order->company_id,
+                'user_id' => $order->user_id,
+            ])
+        );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
@@ -46,20 +38,12 @@ class UpdateOrderControllerTest extends TestCase
     public function testIdIsNotIntExpectsNotFound(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray([
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $order->company_id,
-            'user_id' => $order->user_id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = UpdateOrderDTO::fromArray(
+            OrderGenerator::updateOrderDTOArrayGenerate([
+                'company_id' => $order->company_id,
+                'user_id' => $order->user_id,
+            ])
+        );
         $response = $this->put(route('orders.update', ['order' => Random::generate(2, 'a-z')]), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
@@ -80,20 +64,12 @@ class UpdateOrderControllerTest extends TestCase
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
         $order = OrderGenerator::generate();
-        $dto = UpdateOrderDTO::fromArray([
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => Random::generate(2, '1-9'),
-            'user_id' => Random::generate(2, '1-9'),
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = UpdateOrderDTO::fromArray(
+            OrderGenerator::updateOrderDTOArrayGenerate([
+                'company_id' => Random::generate(4, '1-9'),
+                'user_id' => Random::generate(4, '1-9'),
+            ])
+        );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
             'cart_items' => json_encode(
                 $dto->getCartItems()

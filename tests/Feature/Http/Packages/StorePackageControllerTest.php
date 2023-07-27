@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Packages;
 use App\Services\Packages\DTO\StorePackageDTO;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
+use Tests\Generators\PackageGenerator;
 use Tests\TestCase;
 
 class StorePackageControllerTest extends TestCase
@@ -12,12 +13,11 @@ class StorePackageControllerTest extends TestCase
     public function testExpectsSuccess(): void
     {
         $model = CompanyGenerator::generate();
-        $dto = StorePackageDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'company_id' => $model->id,
-        ]);
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
         $response = $this->post(route('packages.store'), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
@@ -33,12 +33,11 @@ class StorePackageControllerTest extends TestCase
     public function testFieldDoesNotExistExpectsUnprocessable(): void
     {
         $model = CompanyGenerator::generate();
-        $dto = StorePackageDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'company_id' => $model->id,
-        ]);
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
         $response = $this->post(route('packages.store'), [
             'description' => $dto->getDescription(),
             'company_id' => $dto->getCompanyId(),
@@ -52,12 +51,11 @@ class StorePackageControllerTest extends TestCase
     public function testFieldTypeIsNotCorrectExpectsUnprocessable(): void
     {
         $model = CompanyGenerator::generate();
-        $dto = StorePackageDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'company_id' => $model->id,
-        ]);
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
         $response = $this->post(route('packages.store'), [
             'description' => $dto->getDescription(),
             'company_id' => Random::generate(1, 'a-z'),
@@ -70,12 +68,11 @@ class StorePackageControllerTest extends TestCase
 
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
-        $dto = StorePackageDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'company_id' => Random::generate(2, '1-9'),
-        ]);
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => Random::generate(4, '1-9'),
+            ])
+        );
         $response = $this->post(route('packages.store'), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),

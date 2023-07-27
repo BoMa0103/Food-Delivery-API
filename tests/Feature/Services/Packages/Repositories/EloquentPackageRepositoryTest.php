@@ -38,12 +38,11 @@ class EloquentPackageRepositoryTest extends TestCase
     public function testCreateExpectsSuccess():void
     {
         $model = CompanyGenerator::generate();
-        $dto = StorePackageDTO::fromArray([
-            'name' => Random::generate(10, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'description' => Random::generate(20, 'a-z'),
-            'company_id' => $model->id,
-        ]);
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
         $this->getEloquentPackageRepository()->store($dto);
 
         $model = Package::query()->where('name', $dto->getName())->first();
@@ -56,12 +55,11 @@ class EloquentPackageRepositoryTest extends TestCase
     public function testUpdateExpectsSuccess():void
     {
         $package = PackageGenerator::generate();
-        $dto = UpdatePackageDTO::fromArray([
-            'name' => Random::generate(10, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'description' => Random::generate(20, 'a-z'),
-            'company_id' => $package->company_id,
-        ]);
+        $dto = UpdatePackageDTO::fromArray(
+            PackageGenerator::updatePackageDTOArrayGenerate([
+                'company_id' => $package->company_id,
+            ])
+        );
         $oldCompanyId = $package->company_id;
         $oldName = $package->name;
         $oldPrice = $package->price;

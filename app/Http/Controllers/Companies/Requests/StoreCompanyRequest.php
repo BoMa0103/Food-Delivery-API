@@ -15,6 +15,7 @@ class StoreCompanyRequest extends FormRequest
             'rating' => 'required|numeric',
             'status' => 'required|integer',
             'description' => 'required|string',
+            'base_order_package_id' => 'integer|exists:packages,id',
         ];
     }
 
@@ -26,6 +27,7 @@ class StoreCompanyRequest extends FormRequest
             'rating' => $this->validated('rating'),
             'status' => $this->validated('status'),
             'description' => $this->validated('description'),
+            'base_order_package_id' => $this->validated('base_order_package_id'),
         ]);
     }
 }

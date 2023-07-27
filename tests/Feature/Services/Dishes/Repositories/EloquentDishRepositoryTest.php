@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nette\Utils\Random;
 use Tests\Generators\CategoryGenerator;
 use Tests\Generators\DishGenerator;
+use Tests\Generators\PackageGenerator;
 use Tests\TestCase;
 
 class EloquentDishRepositoryTest extends TestCase
@@ -37,32 +38,35 @@ class EloquentDishRepositoryTest extends TestCase
 
     public function testCreateExpectsSuccess():void
     {
-        $model = CategoryGenerator::generate();
-        $dto = StoreDishDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $model->id,
-        ]);
+        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => $category->id,
+                'package_id' => $package->id,
+            ])
+        );
         $this->getEloquentDishRepository()->store($dto);
 
         $model = Dish::query()->where('name', $dto->getName())->first();
         $this->assertEquals($dto->getDescription(), $model->description);
         $this->assertEquals($dto->getPrice(), $model->price);
         $this->assertEquals($dto->getCategoryId(), $model->category_id);
+        $this->assertEquals($dto->getPackageId(), $model->package_id);
         $this->assertDatabaseCount('dishes', 1);
     }
 
     public function testUpdateExpectsSuccess():void
     {
         $dish = DishGenerator::generate();
-        $dto = UpdateDishDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $dish->category_id,
-        ]);
+        $dto = UpdateDishDTO::fromArray(
+            DishGenerator::updateDishDTOArrayGenerate([
+                'category_id' => $dish->category_id,
+                'package_id' => $dish->package_id,
+            ])
+        );
         $oldCategoryId = $dish->category_id;
+        $oldPackageId = $dish->package_id;
         $oldName = $dish->name;
         $oldPrice = $dish->price;
         $this->getEloquentDishRepository()->update($dish, $dto);
@@ -70,6 +74,7 @@ class EloquentDishRepositoryTest extends TestCase
         $dish->refresh();
 
         $this->assertEquals($oldCategoryId, $dish->category_id);
+        $this->assertEquals($oldPackageId, $dish->package_id);
         $this->assertNotEquals($oldName, $dish->name);
         $this->assertNotEquals($oldPrice, $dish->price);
     }

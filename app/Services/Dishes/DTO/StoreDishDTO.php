@@ -9,7 +9,16 @@ class StoreDishDTO
         protected string $description,
         protected float $price,
         protected int $category_id,
+        protected int $package_id,
     ){
+    }
+
+    /**
+     * @return int
+     */
+    public function getPackageId(): int
+    {
+        return $this->package_id;
     }
 
     /**
@@ -54,6 +63,7 @@ class StoreDishDTO
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'category_id' => $this->getCategoryId(),
+            'package_id' => $this->getPackageId()
         ];
     }
 
@@ -64,6 +74,7 @@ class StoreDishDTO
             $data['description'],
             $data['price'],
             $data['category_id'],
+            $data['package_id'],
         );
     }
 }

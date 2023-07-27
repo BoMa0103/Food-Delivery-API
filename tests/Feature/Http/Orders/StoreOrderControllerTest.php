@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Orders;
 use App\Services\Orders\DTO\StoreOrderDTO;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
+use Tests\Generators\OrderGenerator;
 use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
@@ -14,21 +15,12 @@ class StoreOrderControllerTest extends TestCase
     {
         $company = CompanyGenerator::generate();
         $user = UserGenerator::generate();
-        $dto = StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $company->id,
-            'user_id' => $user->id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = StoreOrderDTO::fromArray(
+            OrderGenerator::storeOrderDTOArrayGenerate([
+                'company_id' => $company->id,
+                'user_id' => $user->id,
+            ])
+        );
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
@@ -50,21 +42,12 @@ class StoreOrderControllerTest extends TestCase
     {
         $company = CompanyGenerator::generate();
         $user = UserGenerator::generate();
-        $dto = StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $company->id,
-            'user_id' => $user->id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = StoreOrderDTO::fromArray(
+            OrderGenerator::storeOrderDTOArrayGenerate([
+                'company_id' => $company->id,
+                'user_id' => $user->id,
+            ])
+        );
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
@@ -84,21 +67,12 @@ class StoreOrderControllerTest extends TestCase
     {
         $company = CompanyGenerator::generate();
         $user = CompanyGenerator::generate();
-        $dto = StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => $company->id,
-            'user_id' => $user->id,
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = StoreOrderDTO::fromArray(
+            OrderGenerator::storeOrderDTOArrayGenerate([
+                'company_id' => $company->id,
+                'user_id' => $user->id,
+            ])
+        );
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()
@@ -118,21 +92,12 @@ class StoreOrderControllerTest extends TestCase
 
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
-        $dto = StoreOrderDTO::fromArray([
-            'number' => Random::generate(6, '1-9'),
-            'cart_items' => json_encode([
-                [
-                    'id' => Random::generate(2, '0-9'),
-                    'count' => Random::generate(2, '0-9'),
-                ],
-            ]),
-            'company_id' => Random::generate(2, '1-9'),
-            'user_id' => Random::generate(2, '1-9'),
-            'deliveryType' => Random::generate(1, '1-2'),
-            'deliveryTime' => 0,
-            'deliveryAddressStreet' => Random::generate(10, 'a-z'),
-            'deliveryAddressHouse' => Random::generate(10, 'a-z'),
-        ]);
+        $dto = StoreOrderDTO::fromArray(
+            OrderGenerator::storeOrderDTOArrayGenerate([
+                'company_id' => Random::generate(4, '1-9'),
+                'user_id' => Random::generate(4, '1-9'),
+            ])
+        );
         $response = $this->post(route('orders.store'), [
             'cart_items' => json_encode(
                 $dto->getCartItems()

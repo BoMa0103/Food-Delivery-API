@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->text('description');
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('company_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

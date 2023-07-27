@@ -9,6 +9,7 @@ use App\Services\Companies\Repositories\EloquentCompanyRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nette\Utils\Random;
 use Tests\Generators\CompanyGenerator;
+use Tests\Generators\PackageGenerator;
 use Tests\TestCase;
 
 class EloquentCompanyRepositoryTest extends TestCase
@@ -36,16 +37,13 @@ class EloquentCompanyRepositoryTest extends TestCase
 
     public function testCreateExpectsSuccess():void
     {
-        $dto = StoreCompanyDTO::fromArray([
-            'name' => Random::generate(6, '1-9'),
-            'address' => Random::generate(50, 'a-z'),
-            'rating' => Random::generate(1, '1-5'),
-            'status' => Random::generate(1, '1-3'),
-            'description' => Random::generate(100, 'a-z'),
-        ]);
+        $dto = StoreCompanyDTO::fromArray(
+            CompanyGenerator::storeCompanyDTOArrayGenerate()
+        );
         $this->getEloquentCompanyRepository()->store($dto);
 
         $model = Company::query()->where('name', $dto->getName())->first();
+
         $this->assertEquals($dto->getStatus(), $model->status);
         $this->assertEquals($dto->getAddress(), $model->address);
         $this->assertDatabaseCount('companies', 1);
@@ -54,13 +52,12 @@ class EloquentCompanyRepositoryTest extends TestCase
     public function testUpdateExpectsSuccess():void
     {
         $company = CompanyGenerator::generate();
-        $dto = UpdateCompanyDTO::fromArray([
-            'name' => $company->name,
-            'address' => Random::generate(50, 'a-z'),
-            'rating' => Random::generate(1, '1-5'),
-            'status' => Random::generate(1, '1-3'),
-            'description' => Random::generate(100, 'a-z'),
-        ]);
+        $dto = UpdateCompanyDTO::fromArray(
+            CompanyGenerator::updateCompanyDTOArrayGenerate([
+                'name' => $company->name,
+                'base_order_package_id' => $company->base_package_id,
+            ])
+        );
         $oldCompanyName = $company->name;
         $oldCompanyAddress = $company->address;
         $this->getEloquentCompanyRepository()->update($company, $dto);

@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->float('rating')->default(CompanyDTO::DEFAULT_RATING->value);
-            $table->integer('status')->default(CompanyDTO::STATUS_IS_WORKING->value);
+            $table->float('rating')
+                ->default(CompanyDTO::DEFAULT_RATING->value);
+            $table->tinyInteger('status')
+                ->default(CompanyDTO::STATUS_IS_WORKING->value);
             $table->text('description')->nullable();
         });
     }

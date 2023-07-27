@@ -5,6 +5,7 @@ namespace Tests\Generators;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Dish;
+use App\Models\Package;
 
 class DishGenerator
 {
@@ -12,6 +13,29 @@ class DishGenerator
     {
         $company = Company::factory()->create();
         $category = Category::factory()->for($company)->create();
-        return Dish::factory()->for($category)->create($data);
+        $package = Package::factory()->for($company)->create();
+        return Dish::factory()->for($category)->for($package)->create($data);
+    }
+
+    public static function storeDishDTOArrayGenerate(array $data = []): array
+    {
+        return [
+            'name' => $data['name'] ?? fake()->name,
+            'description' => $data['description'] ?? fake()->text,
+            'price' => $data['price'] ?? fake()->randomFloat(2, 1, 1000),
+            'category_id' => $data['category_id'] ?? null,
+            'package_id' => $data['package_id'] ?? null,
+        ];
+    }
+
+    public static function updateDishDTOArrayGenerate(array $data = []): array
+    {
+        return [
+            'name' => $data['name'] ?? fake()->name,
+            'description' => $data['description'] ?? fake()->text,
+            'price' => $data['price'] ?? fake()->randomFloat(2, 1, 1000),
+            'category_id' => $data['category_id'] ?? null,
+            'package_id' => $data['package_id'] ?? null,
+        ];
     }
 }

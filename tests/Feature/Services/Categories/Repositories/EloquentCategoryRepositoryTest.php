@@ -38,10 +38,11 @@ class EloquentCategoryRepositoryTest extends TestCase
     public function testCreateExpectsSuccess():void
     {
         $model = CompanyGenerator::generate();
-        $dto = StoreCategoryDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'company_id' => $model->id,
-        ]);
+        $dto = StoreCategoryDTO::fromArray(
+            CategoryGenerator::storeCategoryDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
         $this->getEloquentCategoryRepository()->store($dto);
 
         $model = Category::query()->where('name', $dto->getName())->first();
@@ -52,10 +53,11 @@ class EloquentCategoryRepositoryTest extends TestCase
     public function testUpdateExpectsSuccess():void
     {
         $category = CategoryGenerator::generate();
-        $dto = UpdateCategoryDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'company_id' => $category->id,
-        ]);
+        $dto = UpdateCategoryDTO::fromArray(
+            CategoryGenerator::updateCategoryDTOArrayGenerate([
+                'company_id' => $category->company_id,
+            ])
+        );
         $oldCompanyId = $category->company_id;
         $oldName = $category->name;
         $this->getEloquentCategoryRepository()->update($category, $dto);

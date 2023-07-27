@@ -28,6 +28,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Dish whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dish wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Dish whereUpdatedAt($value)
+ * @property int|null $package_id
+ * @property-read \App\Models\Package|null $package
+ * @method static \Illuminate\Database\Eloquent\Builder|Dish wherePackageId($value)
  * @mixin \Eloquent
  */
 class Dish extends Model
@@ -41,5 +44,10 @@ class Dish extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(Package::class);
     }
 }

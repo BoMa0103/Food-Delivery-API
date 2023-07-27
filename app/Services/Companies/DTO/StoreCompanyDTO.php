@@ -10,7 +10,17 @@ class StoreCompanyDTO
         protected float  $rating,
         protected int    $status,
         protected string $description,
-    ){
+        protected ?int    $base_order_package_id,
+    )
+    {
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getBaseOrderPackageId(): ?int
+    {
+        return $this->base_order_package_id;
     }
 
     /**
@@ -64,6 +74,7 @@ class StoreCompanyDTO
             'rating' => $this->getRating(),
             'status' => $this->getStatus(),
             'description' => $this->getDescription(),
+            'base_order_package_id' => $this->getBaseOrderPackageId(),
         ];
     }
 
@@ -75,6 +86,7 @@ class StoreCompanyDTO
             $data['rating'],
             $data['status'],
             $data['description'],
+            $data['base_order_package_id'],
         );
     }
 }

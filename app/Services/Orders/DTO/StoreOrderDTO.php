@@ -5,15 +5,16 @@ namespace App\Services\Orders\DTO;
 class StoreOrderDTO
 {
     public function __construct(
-        protected int $number,
-        protected array $cart_items,
-        protected int $company_id,
-        protected int $user_id,
-        protected int $deliveryType,
-        protected int $deliveryTime,
+        protected int    $number,
+        protected array  $cart_items,
+        protected int    $company_id,
+        protected int    $user_id,
+        protected int    $deliveryType,
+        protected int    $deliveryTime,
         protected string $deliveryAddressStreet,
         protected string $deliveryAddressHouse,
-    ){
+    )
+    {
     }
 
     /**

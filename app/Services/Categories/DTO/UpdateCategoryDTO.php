@@ -6,8 +6,9 @@ class UpdateCategoryDTO
 {
     public function __construct(
         protected string $name,
-        protected int $company_id,
-    ){
+        protected int    $company_id,
+    )
+    {
     }
 
     /**

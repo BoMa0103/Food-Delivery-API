@@ -13,7 +13,8 @@ class StoreDishRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'category_id' => 'required|integer|exists:categories,id'
+            'category_id' => 'required|integer|exists:categories,id',
+            'package_id' => 'integer|exists:packages,id'
         ];
     }
 
@@ -24,6 +25,7 @@ class StoreDishRequest extends FormRequest
             'description' => $this->validated('description'),
             'price' => $this->validated('price'),
             'category_id' => $this->validated('category_id'),
+            'package_id' => $this->validated('package_id'),
         ]);
     }
 }

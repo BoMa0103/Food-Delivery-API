@@ -1,11 +1,11 @@
 <?php
 
+use App\Services\Packages\DTO\PackageDTO;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,7 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->float('price');
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('package_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

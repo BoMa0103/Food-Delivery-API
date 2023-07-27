@@ -6,24 +6,27 @@ use App\Services\Dishes\DTO\StoreDishDTO;
 use Nette\Utils\Random;
 use Tests\Generators\CategoryGenerator;
 use Tests\Generators\DishGenerator;
+use Tests\Generators\PackageGenerator;
 use Tests\TestCase;
 
 class StoreDishControllerTest extends TestCase
 {
     public function testExpectsSuccess(): void
     {
-        $model = CategoryGenerator::generate();
-        $dto = StoreDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $model->id,
-        ]);
+        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => $category->id,
+                'package_id'  => $package->id,
+            ])
+        );
         $response = $this->post(route('dishes.store'), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
             'price' => $dto->getPrice(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -33,16 +36,18 @@ class StoreDishControllerTest extends TestCase
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
     {
-        $model = CategoryGenerator::generate();
-        $dto = StoreDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $model->id,
-        ]);
+        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => $category->id,
+                'package_id'  => $package->id,
+            ])
+        );
         $response = $this->post(route('dishes.store'), [
             'description' => $dto->getDescription(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -52,16 +57,18 @@ class StoreDishControllerTest extends TestCase
 
     public function testFieldTypeIsNotCorrectExpectsUnprocessable(): void
     {
-        $model = CategoryGenerator::generate();
-        $dto = StoreDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => $model->id,
-        ]);
+        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => $category->id,
+                'package_id'  => $package->id,
+            ])
+        );
         $response = $this->post(route('dishes.store'), [
             'description' => $dto->getDescription(),
-            'category_id' => Random::generate(1, 'a-z'),
+            'category_id' => Random::generate(2, 'a-z'),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
@@ -71,17 +78,18 @@ class StoreDishControllerTest extends TestCase
 
     public function testForeignKeyDoesNotExistsExpectsUnprocessable(): void
     {
-        $dto = StoreDishDTO::fromArray([
-            'name' => Random::generate(6, 'a-z'),
-            'description' => Random::generate(20, 'a-z'),
-            'price' => Random::generate(3, '0-9'),
-            'category_id' => Random::generate(2, '1-9'),
-        ]);
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => Random::generate(4, '1-9'),
+                'package_id'  => Random::generate(4, '1-9'),
+            ])
+        );
         $response = $this->post(route('categories.store'), [
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
             'price' => $dto->getPrice(),
             'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
         ], [
             'Accept' => 'application/json',
         ]);
