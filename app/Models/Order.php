@@ -37,7 +37,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $deliveryAddressHouse
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryAddressHouse($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryAddressStreet($value)
- * @mixin \Eloquent
  */
 class Order extends Model
 {

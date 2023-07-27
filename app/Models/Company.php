@@ -36,7 +36,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $orders_count
  * @property int|null $base_package_id
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereBasePackageId($value)
- * @mixin \Eloquent
  */
 class Company extends Model
 {
