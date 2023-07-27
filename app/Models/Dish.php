@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Database\Factories\DishFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,21 +18,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $category_id
  * @property string|null $created_at
  * @property string|null $updated_at
- * @property-read \App\Models\Category $category
- * @method static \Database\Factories\DishFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Dish newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Dish newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Dish query()
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Dish whereUpdatedAt($value)
+ * @property-read Category $category
+ * @method static DishFactory factory($count = null, $state = [])
+ * @method static Builder|Dish newModelQuery()
+ * @method static Builder|Dish newQuery()
+ * @method static Builder|Dish query()
+ * @method static Builder|Dish whereCategoryId($value)
+ * @method static Builder|Dish whereCreatedAt($value)
+ * @method static Builder|Dish whereDescription($value)
+ * @method static Builder|Dish whereId($value)
+ * @method static Builder|Dish whereName($value)
+ * @method static Builder|Dish wherePrice($value)
+ * @method static Builder|Dish whereUpdatedAt($value)
  * @property int|null $package_id
- * @property-read \App\Models\Package|null $package
- * @method static \Illuminate\Database\Eloquent\Builder|Dish wherePackageId($value)
+ * @property-read Package|null $package
+ * @method static Builder|Dish wherePackageId($value)
  */
 class Dish extends Model
 {

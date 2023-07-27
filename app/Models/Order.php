@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Database\Factories\OrderFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Order
@@ -12,31 +15,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property float $number
  * @property int $company_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Company $company
- * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Order query()
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Company $company
+ * @method static OrderFactory factory($count = null, $state = [])
+ * @method static Builder|Order newModelQuery()
+ * @method static Builder|Order newQuery()
+ * @method static Builder|Order query()
+ * @method static Builder|Order whereCompanyId($value)
+ * @method static Builder|Order whereCreatedAt($value)
+ * @method static Builder|Order whereId($value)
+ * @method static Builder|Order whereNumber($value)
+ * @method static Builder|Order whereUpdatedAt($value)
  * @property array $cart_items
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCartItems($value)
+ * @method static Builder|Order whereCartItems($value)
  * @property int $user_id
  * @property int $deliveryType
  * @property int $deliveryTime
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ * @property-read User $user
+ * @method static Builder|Order whereDeliveryTime($value)
+ * @method static Builder|Order whereDeliveryType($value)
+ * @method static Builder|Order whereUserId($value)
  * @property string|null $deliveryAddressStreet
  * @property string|null $deliveryAddressHouse
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryAddressHouse($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryAddressStreet($value)
+ * @method static Builder|Order whereDeliveryAddressHouse($value)
+ * @method static Builder|Order whereDeliveryAddressStreet($value)
  */
 class Order extends Model
 {

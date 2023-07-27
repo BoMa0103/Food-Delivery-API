@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\CategoryFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,19 +19,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $company_id
  * @property string|null $created_at
  * @property string|null $updated_at
- * @property-read \App\Models\Company $company
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Dish> $dishes
+ * @property-read Company $company
+ * @property-read Collection<int, Dish> $dishes
  * @property-read int|null $dishes_count
- * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Category query()
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static CategoryFactory factory($count = null, $state = [])
+ * @method static Builder|Category newModelQuery()
+ * @method static Builder|Category newQuery()
+ * @method static Builder|Category query()
+ * @method static Builder|Category whereCompanyId($value)
+ * @method static Builder|Category whereCreatedAt($value)
+ * @method static Builder|Category whereId($value)
+ * @method static Builder|Category whereName($value)
+ * @method static Builder|Category whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Category extends Model
 {
