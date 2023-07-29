@@ -12,6 +12,6 @@ interface PackageRepository
     public function index(): Collection;
     public function find(int $id): ?Package;
     public function store(StorePackageDTO $dto): Package;
-    public function update(Package $company, UpdatePackageDTO $dto): Package;
+    public function update(Package $package, UpdatePackageDTO $dto): Package;
     public function delete(int $id): void;
 }
