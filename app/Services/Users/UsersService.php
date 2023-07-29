@@ -6,12 +6,18 @@ use App\Models\User;
 use App\Services\Users\DTO\StoreUserDTO;
 use App\Services\Users\DTO\UpdateUserDTO;
 use App\Services\Users\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class UsersService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
     ){
+    }
+
+    public function index(): Collection
+    {
+        return $this->userRepository->index();
     }
 
     public function find(int $id): ?User

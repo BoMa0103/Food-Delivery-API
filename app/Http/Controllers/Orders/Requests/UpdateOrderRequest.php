@@ -23,7 +23,7 @@ class UpdateOrderRequest extends FormRequest
     public function getDTO(): UpdateOrderRequestDTO
     {
         return UpdateOrderRequestDTO::fromArray([
-            'cart_items' => $this->validated('cart_items'),
+            'cart_items' => json_decode($this->validated('cart_items'), true),
             'company_id' => $this->validated('company_id'),
             'user_id' => $this->validated('user_id'),
             'deliveryType' => $this->validated('deliveryType'),

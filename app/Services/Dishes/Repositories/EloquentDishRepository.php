@@ -5,9 +5,15 @@ namespace App\Services\Dishes\Repositories;
 use App\Models\Dish;
 use app\Services\Dishes\DTO\StoreDishDTO;
 use app\Services\Dishes\DTO\UpdateDishDTO;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentDishRepository implements DishRepository
 {
+    public function index(): Collection
+    {
+        return Dish::query()->get();
+    }
+
     public function find(int $id): ?Dish
     {
         return Dish::query()->find($id);

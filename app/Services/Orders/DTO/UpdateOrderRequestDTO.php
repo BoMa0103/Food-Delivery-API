@@ -73,7 +73,7 @@ class UpdateOrderRequestDTO
     public static function fromArray(array $data): UpdateOrderRequestDTO
     {
         return new self(
-            json_decode($data['cart_items'], true),
+            $data['cart_items'],
             $data['company_id'],
             $data['user_id'],
             $data['deliveryType'],

@@ -18,20 +18,18 @@ class StoreOrderControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $dto = StoreOrderRequestDTO::fromArray(
             OrderGenerator::storeOrderRequestDTOArrayGenerate([
-                'cart_items' => json_encode([
+                'cart_items' => [
                         [
                             'id' => $dish->id,
                             'count' => fake()->numberBetween(1, 20),
                         ],
-                    ]),
+                    ],
                 'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
         $response = $this->post(route('orders.store'), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -51,20 +49,18 @@ class StoreOrderControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $dto = StoreOrderRequestDTO::fromArray(
             OrderGenerator::storeOrderRequestDTOArrayGenerate([
-                'cart_items' => json_encode([
+                'cart_items' => [
                     [
                         'id' => $dish->id,
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
                 'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
         $response = $this->post(route('orders.store'), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'deliveryTime' => $dto->getDeliveryTime(),
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
@@ -82,20 +78,18 @@ class StoreOrderControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $dto = StoreOrderRequestDTO::fromArray(
             OrderGenerator::storeOrderRequestDTOArrayGenerate([
-                'cart_items' => json_encode([
+                'cart_items' => [
                     [
                         'id' => $dish->id,
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
                 'company_id' => $dish->category->company_id,
                 'user_id' => $user->id,
             ])
         );
         $response = $this->post(route('orders.store'), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => Random::generate(2, 'a-z'),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -118,9 +112,7 @@ class StoreOrderControllerTest extends TestCase
             ])
         );
         $response = $this->post(route('orders.store'), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),

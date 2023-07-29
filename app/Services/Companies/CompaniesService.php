@@ -6,12 +6,18 @@ use App\Models\Company;
 use App\Services\Companies\DTO\StoreCompanyDTO;
 use App\Services\Companies\DTO\UpdateCompanyDTO;
 use App\Services\Companies\Repositories\CompanyRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class CompaniesService
 {
     public function __construct(
         private readonly CompanyRepository $companyRepository,
     ){
+    }
+
+    public function index(): Collection
+    {
+        return $this->companyRepository->index();
     }
 
     public function find(int $id): ?Company

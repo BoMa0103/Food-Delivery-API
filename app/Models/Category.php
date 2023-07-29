@@ -21,15 +21,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Company $company
  * @property-read Collection<int, Dish> $dishes
  * @property-read int|null $dishes_count
+ * @method static Builder|Company query()
  * @method static CategoryFactory factory($count = null, $state = [])
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
- * @method static Builder|Category query()
  * @method static Builder|Category whereCompanyId($value)
- * @method static Builder|Category whereCreatedAt($value)
  * @method static Builder|Category whereId($value)
  * @method static Builder|Category whereName($value)
- * @method static Builder|Category whereUpdatedAt($value)
  */
 class Category extends Model
 {

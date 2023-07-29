@@ -27,9 +27,6 @@ class UpdateUserDTO
         return $this->password;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [

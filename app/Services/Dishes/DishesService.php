@@ -6,12 +6,18 @@ use App\Models\Dish;
 use app\Services\Dishes\DTO\StoreDishDTO;
 use app\Services\Dishes\DTO\UpdateDishDTO;
 use App\Services\Dishes\Repositories\DishRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class DishesService
 {
     public function __construct(
         private readonly DishRepository $dishRepository,
     ){
+    }
+
+    public function index(): Collection
+    {
+        return $this->dishRepository->index();
     }
 
     public function find(int $id): ?Dish

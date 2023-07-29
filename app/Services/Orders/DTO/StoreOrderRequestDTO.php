@@ -91,7 +91,7 @@ class StoreOrderRequestDTO
     public static function fromArray(array $data): StoreOrderRequestDTO
     {
         return new self(
-            json_decode($data['cart_items'], true),
+            $data['cart_items'],
             $data['company_id'],
             $data['user_id'],
             $data['deliveryType'],

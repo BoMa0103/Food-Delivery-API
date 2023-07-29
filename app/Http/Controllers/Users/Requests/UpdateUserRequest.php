@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Users\Requests;
 
-use App\Services\Users\DTO\StoreUserDTO;
 use App\Services\Users\DTO\UpdateUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 

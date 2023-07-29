@@ -5,9 +5,15 @@ namespace App\Services\Companies\Repositories;
 use App\Models\Company;
 use App\Services\Companies\DTO\StoreCompanyDTO;
 use App\Services\Companies\DTO\UpdateCompanyDTO;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCompanyRepository implements CompanyRepository
 {
+    public function index(): Collection
+    {
+        return Company::query()->get();
+    }
+
     public function find(int $id): ?Company
     {
         return Company::query()->find($id);

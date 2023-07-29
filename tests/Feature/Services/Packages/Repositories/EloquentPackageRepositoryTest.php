@@ -14,7 +14,6 @@ use Tests\TestCase;
 
 class EloquentPackageRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentPackageRepository(): EloquentPackageRepository
     {
         return app(EloquentPackageRepository::class);

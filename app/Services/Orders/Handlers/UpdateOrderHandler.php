@@ -7,7 +7,7 @@ use App\Services\Companies\CompaniesService;
 use App\Services\Dishes\DishesService;
 use App\Services\Orders\DTO\UpdateOrderDTO;
 use App\Services\Orders\DTO\UpdateOrderRequestDTO;
-use App\Services\Orders\OrdersService;
+use App\Services\Orders\Repositories\OrderRepository;
 use App\Services\Packages\PackagesService;
 use App\Services\Users\UsersService;
 use Nette\Utils\Random;
@@ -15,18 +15,18 @@ use Nette\Utils\Random;
 class UpdateOrderHandler
 {
     public function __construct(
-        private readonly OrdersService $ordersService,
-        private readonly UsersService $usersService,
-        private readonly PackagesService $packagesService,
+        private readonly OrderRepository  $orderRepository,
+        private readonly UsersService     $usersService,
+        private readonly PackagesService  $packagesService,
         private readonly CompaniesService $companiesService,
-        private readonly DishesService $dishesService,
+        private readonly DishesService    $dishesService,
     )
     {
     }
 
     public function handle(Order $order, UpdateOrderRequestDTO $orderDTO): ?Order
     {
-        return $this->ordersService->update(
+        return $this->orderRepository->update(
             $order,
             $this->generateOrderData($orderDTO)
         );
@@ -36,16 +36,16 @@ class UpdateOrderHandler
     {
         return UpdateOrderDTO::fromArray([
             'number' => $this->generateOrderNumber(),
-            'cart_items' => json_encode($orderDTO->getCartItems()),
+            'cart_items' => $orderDTO->getCartItems(),
             'company_id' => $orderDTO->getCompanyId(),
             'user_id' => $orderDTO->getUserId(),
             'deliveryType' => $orderDTO->getDeliveryType(),
             'deliveryTime' => $orderDTO->getDeliveryTime(),
             'deliveryAddressStreet' => $orderDTO->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $orderDTO->getDeliveryAddressHouse(),
-            'prices' => json_encode($this->generatePricesData($orderDTO)),
-            'user' => json_encode($this->generateUserData($orderDTO)),
-            'package' => json_encode($this->generatePackageData($orderDTO)),
+            'prices' => $this->generatePricesData($orderDTO),
+            'user' => $this->generateUserData($orderDTO),
+            'package' => $this->generatePackageData($orderDTO),
         ]);
     }
 
@@ -72,7 +72,7 @@ class UpdateOrderHandler
     private function getItemsPrice(array $cartItems): float
     {
         $price = 0;
-        foreach ($cartItems as $cartItem){
+        foreach ($cartItems as $cartItem) {
             $price += $this->dishesService->find($cartItem['id'])->price * $cartItem['count'];
         }
         return $price;

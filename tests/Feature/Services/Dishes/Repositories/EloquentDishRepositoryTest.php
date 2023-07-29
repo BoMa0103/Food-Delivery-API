@@ -15,7 +15,6 @@ use Tests\TestCase;
 
 class EloquentDishRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentDishRepository(): EloquentDishRepository
     {
         return app(EloquentDishRepository::class);

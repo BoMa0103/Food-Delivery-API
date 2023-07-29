@@ -24,8 +24,8 @@ class StoreOrderRequest extends FormRequest
     public function getDTO(): StoreOrderRequestDTO
     {
         return StoreOrderRequestDTO::fromArray([
+            'cart_items' => json_decode($this->validated('cart_items'), true),
             'company_id' => $this->validated('company_id'),
-            'cart_items' => $this->validated('cart_items'),
             'user_id' => $this->validated('user_id'),
             'deliveryType' => $this->validated('deliveryType'),
             'deliveryTime' => $this->validated('deliveryTime'),

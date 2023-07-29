@@ -5,9 +5,16 @@ namespace App\Services\Packages\Repositories;
 use App\Models\Package;
 use app\Services\Packages\DTO\StorePackageDTO;
 use app\Services\Packages\DTO\UpdatePackageDTO;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentPackageRepository implements PackageRepository
 {
+
+    public function index(): Collection
+    {
+        return Package::query()->get();
+    }
+
     public function find(int $id): ?Package
     {
         return Package::query()->find($id);

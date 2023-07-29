@@ -132,16 +132,16 @@ class UpdateOrderDTO
     {
         return new self(
             $data['number'],
-            json_decode($data['cart_items'], true),
+            $data['cart_items'],
             $data['company_id'],
             $data['user_id'],
             $data['deliveryType'],
             $data['deliveryTime'],
             $data['deliveryAddressStreet'],
             $data['deliveryAddressHouse'],
-            json_decode($data['prices'], true),
-            json_decode($data['user'], true),
-            json_decode($data['package'], true),
+            $data['prices'],
+            $data['user'],
+            $data['package'],
         );
     }
 }

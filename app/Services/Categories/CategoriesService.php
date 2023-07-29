@@ -6,12 +6,18 @@ use App\Models\Category;
 use app\Services\Categories\DTO\StoreCategoryDTO;
 use app\Services\Categories\DTO\UpdateCategoryDTO;
 use App\Services\Categories\Repositories\CategoryRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoriesService
 {
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
     ){
+    }
+
+    public function index(): Collection
+    {
+        return $this->categoryRepository->index();
     }
 
     public function find(int $id): ?Category

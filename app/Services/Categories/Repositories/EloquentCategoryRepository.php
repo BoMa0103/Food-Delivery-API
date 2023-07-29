@@ -5,9 +5,15 @@ namespace App\Services\Categories\Repositories;
 use App\Models\Category;
 use app\Services\Categories\DTO\StoreCategoryDTO;
 use app\Services\Categories\DTO\UpdateCategoryDTO;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCategoryRepository implements CategoryRepository
 {
+    public function index(): Collection
+    {
+        return Category::query()->get();
+    }
+
     public function find(int $id): ?Category
     {
         return Category::query()->find($id);

@@ -13,7 +13,6 @@ use Tests\TestCase;
 
 class EloquentUserRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentUserRepository(): EloquentUserRepository
     {
         return app(EloquentUserRepository::class);

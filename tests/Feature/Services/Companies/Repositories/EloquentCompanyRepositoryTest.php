@@ -14,7 +14,6 @@ use Tests\TestCase;
 
 class EloquentCompanyRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentCompanyRepository(): EloquentCompanyRepository
     {
         return app(EloquentCompanyRepository::class);

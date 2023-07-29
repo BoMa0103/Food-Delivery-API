@@ -14,7 +14,6 @@ use Tests\TestCase;
 
 class EloquentCategoryRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentCategoryRepository(): EloquentCategoryRepository
     {
         return app(EloquentCategoryRepository::class);

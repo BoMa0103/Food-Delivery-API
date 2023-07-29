@@ -16,20 +16,18 @@ class UpdateOrderControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $dto = UpdateOrderRequestDTO::fromArray(
             OrderGenerator::updateOrderRequestDTOArrayGenerate([
-                'cart_items' => json_encode([
+                'cart_items' => [
                     [
                         'id' => $dish->id,
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
                 'company_id' => $order->company_id,
                 'user_id' => $order->user_id,
             ])
         );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -49,20 +47,18 @@ class UpdateOrderControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $dto = UpdateOrderRequestDTO::fromArray(
             OrderGenerator::updateOrderRequestDTOArrayGenerate([
-                'cart_items' => json_encode([
+                'cart_items' => [
                     [
                         'id' => $dish->id,
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
                 'company_id' => $order->company_id,
                 'user_id' => $order->user_id,
             ])
         );
         $response = $this->put(route('orders.update', ['order' => Random::generate(2, 'a-z')]), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -86,9 +82,7 @@ class UpdateOrderControllerTest extends TestCase
             ])
         );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
-            'cart_items' => json_encode(
-                $dto->getCartItems()
-            ),
+            'cart_items' => json_encode($dto->getCartItems()),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),

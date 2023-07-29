@@ -17,7 +17,6 @@ use Tests\TestCase;
 
 class EloquentOrderRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
     private function getEloquentOrderRepository(): EloquentOrderRepository
     {
         return app(EloquentOrderRepository::class);

@@ -23,33 +23,33 @@ class OrderGenerator
     {
         return [
             'number' => $data['number'] ?? fake()->numberBetween(100000, 999999),
-            'cart_items' => $data['cart_items'] ?? json_encode([
+            'cart_items' => $data['cart_items'] ?? [
                     [
                         'id' => fake()->numberBetween(1, 20),
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
             'company_id' => $data['company_id'] ?? null,
             'user_id' => $data['user_id'] ?? null,
             'deliveryType' => fake()->numberBetween(1, 2),
             'deliveryTime' => 0,
             'deliveryAddressStreet' => $data['deliveryAddressStreet'] ?? fake()->streetAddress,
             'deliveryAddressHouse' => $data['deliveryAddressStreet'] ?? fake()->address,
-            'prices' => $data['prices'] ?? json_encode([
+            'prices' => $data['prices'] ?? [
                     'itemsPrice' => fake()->numberBetween(1, 1000),
                     'packagePrice' => fake()->numberBetween(1, 100),
                     'deliveryPrice' => fake()->numberBetween(1, 100),
                     'fullPrice' => fake()->numberBetween(1, 1000),
-                ]),
-            'user' => $data['user'] ?? json_encode([
+                ],
+            'user' => $data['user'] ?? [
                     'id' => fake()->numberBetween(1, 20),
                     'name' => fake()->name,
                     'email' => fake()->email,
-                ]),
-            'package' => $data['package'] ?? json_encode([
+                ],
+            'package' => $data['package'] ?? [
                     'name' => fake()->name,
                     'price' => fake()->randomFloat(1, 100),
-                ]),
+                ],
         ];
     }
 
@@ -57,45 +57,45 @@ class OrderGenerator
     {
         return [
             'number' => $data['number'] ?? fake()->numberBetween(100000, 999999),
-            'cart_items' => $data['cart_items'] ?? json_encode([
+            'cart_items' => $data['cart_items'] ?? [
                     [
                         'id' => fake()->numberBetween(1, 20),
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
             'company_id' => $data['company_id'] ?? null,
             'user_id' => $data['user_id'] ?? null,
             'deliveryType' => fake()->numberBetween(1, 2),
             'deliveryTime' => 0,
             'deliveryAddressStreet' => $data['deliveryAddressStreet'] ?? fake()->streetAddress,
             'deliveryAddressHouse' => $data['deliveryAddressStreet'] ?? fake()->address,
-            'prices' => $data['prices'] ?? json_encode([
+            'prices' => $data['prices'] ?? [
                     'itemsPrice' => fake()->numberBetween(1, 1000),
                     'packagePrice' => fake()->numberBetween(1, 100),
                     'deliveryPrice' => fake()->numberBetween(1, 100),
                     'fullPrice' => fake()->numberBetween(1, 1000),
-                ]),
-            'user' => $data['user'] ?? json_encode([
+                ],
+            'user' => $data['user'] ?? [
                     'id' => fake()->numberBetween(1, 20),
                     'name' => fake()->name,
                     'email' => fake()->email,
-                ]),
-            'package' => $data['package'] ?? json_encode([
+                ],
+            'package' => $data['package'] ?? [
                     'name' => fake()->name,
                     'price' => fake()->randomFloat(1, 100),
-                ]),
+                ],
         ];
     }
 
     public static function storeOrderRequestDTOArrayGenerate(array $data = []): array
     {
         return [
-            'cart_items' => $data['cart_items'] ?? json_encode([
+            'cart_items' => $data['cart_items'] ?? [
                     [
                         'id' => fake()->numberBetween(1, 20),
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
             'company_id' => $data['company_id'] ?? null,
             'user_id' => $data['user_id'] ?? null,
             'deliveryType' => fake()->numberBetween(1, 2),
@@ -108,12 +108,12 @@ class OrderGenerator
     public static function updateOrderRequestDTOArrayGenerate(array $data = []): array
     {
         return [
-            'cart_items' => $data['cart_items'] ?? json_encode([
+            'cart_items' => $data['cart_items'] ?? [
                     [
                         'id' => fake()->numberBetween(1, 20),
                         'count' => fake()->numberBetween(1, 20),
                     ],
-                ]),
+                ],
             'company_id' => $data['company_id'] ?? null,
             'user_id' => $data['user_id'] ?? null,
             'deliveryType' => fake()->numberBetween(1, 2),
