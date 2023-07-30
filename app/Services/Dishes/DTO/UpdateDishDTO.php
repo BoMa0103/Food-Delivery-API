@@ -6,12 +6,21 @@ class UpdateDishDTO
 {
     public function __construct(
         protected string $name,
-        protected string $description,
+        protected ?string $description,
         protected float  $price,
+        protected ?string $image,
         protected int    $category_id,
         protected int    $package_id,
     )
     {
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 
     /**
@@ -38,10 +47,7 @@ class UpdateDishDTO
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -63,6 +69,7 @@ class UpdateDishDTO
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
+            'image' => $this->getImage(),
             'category_id' => $this->getCategoryId(),
             'package_id' => $this->getPackageId(),
         ];
@@ -74,6 +81,7 @@ class UpdateDishDTO
             $data['name'],
             $data['description'],
             $data['price'],
+            $data['image'],
             $data['category_id'],
             $data['package_id'],
         );

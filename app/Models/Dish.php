@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $name
  * @property string|null $description
  * @property float $price
+ * @property string $image
  * @property int $category_id
  * @property string|null $created_at
  * @property string|null $updated_at

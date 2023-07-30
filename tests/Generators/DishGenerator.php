@@ -25,6 +25,7 @@ class DishGenerator
             'name' => $data['name'] ?? fake()->name,
             'description' => $data['description'] ?? fake()->text,
             'price' => $data['price'] ?? fake()->randomFloat(2, 1, 1000),
+            'image' => $data['image'] ?? null,
             'category_id' => $data['category_id'] ?? null,
             'package_id' => $data['package_id'] ?? null,
         ];
@@ -36,6 +37,7 @@ class DishGenerator
             'name' => $data['name'] ?? fake()->name,
             'description' => $data['description'] ?? fake()->text,
             'price' => $data['price'] ?? fake()->randomFloat(2, 1, 1000),
+            'image' => $data['image'] ?? null,
             'category_id' => $data['category_id'] ?? null,
             'package_id' => $data['package_id'] ?? null,
         ];
