@@ -13,7 +13,9 @@ class ShowCompanyControllerTest extends TestCase
         $company = CompanyGenerator::generate();
         $response = $this->get(route('companies.show', [
             'company' => $company->id,
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -22,7 +24,9 @@ class ShowCompanyControllerTest extends TestCase
     {
         $response = $this->get(route('companies.show', [
             'company' => Random::generate(2, '0-9'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -31,7 +35,9 @@ class ShowCompanyControllerTest extends TestCase
     {
         $response = $this->delete(route('companies.show', [
             'company' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

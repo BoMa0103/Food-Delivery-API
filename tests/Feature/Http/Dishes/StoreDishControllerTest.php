@@ -28,6 +28,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -49,6 +50,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -70,6 +72,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => Random::generate(2, 'a-z'),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -91,6 +94,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

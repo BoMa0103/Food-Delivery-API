@@ -21,6 +21,7 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -38,6 +39,7 @@ class UpdateCategoryControllerTest extends TestCase
         $response = $this->put(route('categories.update', ['category' => $category->id]), [
             'name' => $dto->getName(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -56,6 +58,7 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -74,6 +77,7 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

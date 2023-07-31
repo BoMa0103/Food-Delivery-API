@@ -8,12 +8,14 @@ use Tests\TestCase;
 
 class DeleteDishControllerTest extends TestCase
 {
-    public function testExpectsSuccess(): void
+    public function testExpectsNoContent(): void
     {
         $dish = DishGenerator::generate();
         $response = $this->delete(route('dishes.delete', [
             'dish' => $dish->id,
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNoContent();
     }
@@ -22,7 +24,9 @@ class DeleteDishControllerTest extends TestCase
     {
         $response = $this->delete(route('dishes.delete', [
             'dish' => Random::generate(4, '1-9'),
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNoContent();
     }
@@ -31,7 +35,9 @@ class DeleteDishControllerTest extends TestCase
     {
         $response = $this->delete(route('dishes.delete', [
             'dish' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

@@ -13,7 +13,9 @@ class ShowCategoryControllerTest extends TestCase
         $category = CategoryGenerator::generate();
         $response = $this->get(route('categories.show', [
             'category' => $category->id,
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -22,7 +24,9 @@ class ShowCategoryControllerTest extends TestCase
     {
         $response = $this->get(route('categories.show', [
             'category' => Random::generate(2, '0-9'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -31,7 +35,9 @@ class ShowCategoryControllerTest extends TestCase
     {
         $response = $this->delete(route('categories.show', [
             'category' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

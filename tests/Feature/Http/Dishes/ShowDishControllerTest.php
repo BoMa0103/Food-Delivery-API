@@ -13,7 +13,9 @@ class ShowDishControllerTest extends TestCase
         $dish = DishGenerator::generate();
         $response = $this->get(route('dishes.show', [
             'dish' => $dish->id,
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -22,7 +24,9 @@ class ShowDishControllerTest extends TestCase
     {
         $response = $this->get(route('dishes.show', [
             'dish' => Random::generate(2, '0-9'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -31,7 +35,9 @@ class ShowDishControllerTest extends TestCase
     {
         $response = $this->delete(route('dishes.show', [
             'dish' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

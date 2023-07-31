@@ -24,6 +24,7 @@ class StorePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -42,6 +43,7 @@ class StorePackageControllerTest extends TestCase
             'description' => $dto->getDescription(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -60,6 +62,7 @@ class StorePackageControllerTest extends TestCase
             'description' => $dto->getDescription(),
             'company_id' => Random::generate(1, 'a-z'),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -79,6 +82,7 @@ class StorePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

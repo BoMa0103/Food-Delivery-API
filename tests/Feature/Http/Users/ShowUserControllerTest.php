@@ -13,7 +13,9 @@ class ShowUserControllerTest extends TestCase
         $category = UserGenerator::generate();
         $response = $this->get(route('users.show', [
             'user' => $category->id,
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -22,7 +24,9 @@ class ShowUserControllerTest extends TestCase
     {
         $response = $this->get(route('users.show', [
             'user' => Random::generate(2, '0-9'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -31,7 +35,9 @@ class ShowUserControllerTest extends TestCase
     {
         $response = $this->delete(route('users.show', [
             'user' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

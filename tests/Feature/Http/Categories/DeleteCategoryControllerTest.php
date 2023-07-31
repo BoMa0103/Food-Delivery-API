@@ -8,12 +8,14 @@ use Tests\TestCase;
 
 class DeleteCategoryControllerTest extends TestCase
 {
-    public function testExpectsSuccess(): void
+    public function testExpectsNoContent(): void
     {
         $category = CategoryGenerator::generate();
         $response = $this->delete(route('categories.delete', [
             'category' => $category->id,
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNoContent();
     }
@@ -22,7 +24,9 @@ class DeleteCategoryControllerTest extends TestCase
     {
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(4, '1-9'),
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNoContent();
     }
@@ -31,7 +35,9 @@ class DeleteCategoryControllerTest extends TestCase
     {
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

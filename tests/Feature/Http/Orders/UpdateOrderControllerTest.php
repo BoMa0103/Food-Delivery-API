@@ -35,6 +35,7 @@ class UpdateOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -66,6 +67,7 @@ class UpdateOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -90,6 +92,7 @@ class UpdateOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

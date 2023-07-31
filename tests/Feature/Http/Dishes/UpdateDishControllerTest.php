@@ -25,6 +25,7 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -47,6 +48,7 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -69,6 +71,7 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

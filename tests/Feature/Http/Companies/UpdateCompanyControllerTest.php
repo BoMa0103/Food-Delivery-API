@@ -22,6 +22,7 @@ class UpdateCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -40,6 +41,7 @@ class UpdateCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 

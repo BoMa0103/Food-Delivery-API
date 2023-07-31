@@ -13,7 +13,9 @@ class ShowOrderControllerTest extends TestCase
         $order = OrderGenerator::generate();
         $response = $this->get(route('orders.show', [
             'order' => $order->id,
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -22,7 +24,9 @@ class ShowOrderControllerTest extends TestCase
     {
         $response = $this->get(route('orders.show', [
             'order' => Random::generate(2, '0-9'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertSuccessful();
     }
@@ -31,7 +35,9 @@ class ShowOrderControllerTest extends TestCase
     {
         $response = $this->delete(route('orders.show', [
             'order' => Random::generate(2, 'a-z'),
-        ]));
+        ]), [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
 
         $response->assertNotFound();
     }

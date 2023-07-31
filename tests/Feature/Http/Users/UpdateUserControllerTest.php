@@ -20,6 +20,7 @@ class UpdateUserControllerTest extends TestCase
             'email' => $dto->getEmail(),
             'password' => $dto->getPassword(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -36,6 +37,7 @@ class UpdateUserControllerTest extends TestCase
             'email' => $dto->getEmail(),
             'password' => $dto->getPassword(),
         ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
