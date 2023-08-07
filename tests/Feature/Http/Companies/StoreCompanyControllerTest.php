@@ -21,11 +21,30 @@ class StoreCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $dto = StoreCompanyDTO::fromArray(
+            CompanyGenerator::storeCompanyDTOArrayGenerate()
+        );
+        $response = $this->post(route('companies.store'), [
+            'name' => $dto->getName(),
+            'address' => $dto->getAddress(),
+            'rating' => $dto->getRating(),
+            'status' => $dto->getStatus(),
+            'description' => $dto->getDescription(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
@@ -39,7 +58,7 @@ class StoreCompanyControllerTest extends TestCase
             'rating' => $dto->getRating(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -58,7 +77,7 @@ class StoreCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

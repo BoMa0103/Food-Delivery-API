@@ -22,11 +22,31 @@ class UpdateCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $company = CompanyGenerator::generate();
+        $dto = UpdateCompanyDTO::fromArray(
+            CompanyGenerator::updateCompanyDTOArrayGenerate()
+        );
+        $response = $this->put(route('companies.update', ['company' => $company->id]), [
+            'name' => $dto->getName(),
+            'address' => $dto->getAddress(),
+            'rating' => $dto->getRating(),
+            'status' => $dto->getStatus(),
+            'description' => $dto->getDescription(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void
@@ -41,7 +61,7 @@ class UpdateCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

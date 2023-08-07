@@ -9,6 +9,8 @@ class DeleteCompanyController extends BaseCompanyController
 {
     public function __invoke(int $id): JsonResponse
     {
+        $this->authorize('delete', auth()->user());
+
         $this->getCompaniesService()->delete($id);
 
         return response()->json([

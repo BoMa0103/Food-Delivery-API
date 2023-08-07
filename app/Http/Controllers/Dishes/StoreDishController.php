@@ -10,6 +10,8 @@ class StoreDishController extends BaseDishController
 {
     public function __invoke(StoreDishRequest $request): JsonResponse
     {
+        $this->authorize('create', auth()->user());
+
         $data = $request->getDTO()->toArray();
 
         if($data['image'])

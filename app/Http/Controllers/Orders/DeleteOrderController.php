@@ -9,6 +9,8 @@ class DeleteOrderController extends BaseOrderController
 {
     public function __invoke(int $id): JsonResponse
     {
+        $this->authorize('delete', auth()->user());
+
         $this->getOrdersService()->delete($id);
 
         return response()->json([

@@ -14,10 +14,22 @@ class DeletePackageControllerTest extends TestCase
         $response = $this->delete(route('packages.delete', [
             'package' => $package->id,
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $package = PackageGenerator::generate();
+        $response = $this->delete(route('packages.delete', [
+            'package' => $package->id,
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testPackageDoesNotExistExpectsNoContent(): void
@@ -25,7 +37,7 @@ class DeletePackageControllerTest extends TestCase
         $response = $this->delete(route('packages.delete', [
             'package' => Random::generate(4, '1-9'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
@@ -36,7 +48,7 @@ class DeletePackageControllerTest extends TestCase
         $response = $this->delete(route('packages.delete', [
             'package' => Random::generate(2, 'a-z'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNotFound();

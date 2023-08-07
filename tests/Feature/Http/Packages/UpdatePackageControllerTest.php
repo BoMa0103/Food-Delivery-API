@@ -23,11 +23,32 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $package = PackageGenerator::generate();
+        $dto = UpdatePackageDTO::fromArray(
+            PackageGenerator::updatePackageDTOArrayGenerate([
+                'company_id' => $package->company_id,
+            ])
+        );
+        $response = $this->put(route('packages.update', ['package' => $package->id]), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void
@@ -44,7 +65,7 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -65,7 +86,7 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

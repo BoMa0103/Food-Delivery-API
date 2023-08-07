@@ -9,6 +9,8 @@ class StoreOrderController extends BaseOrderController
 {
     public function __invoke(StoreOrderRequest $request): JsonResponse
     {
+        $this->authorize('create', auth()->user());
+
         $order = $this->getOrdersService()->store($request->getDTO());
 
         return response()->json($order);

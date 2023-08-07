@@ -11,11 +11,15 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use RefreshDatabase;
 
-    public function generateUserBearerToken(): string
+    public function generateUserBearerToken(string $role = 'user'): string
     {
         $user = UserGenerator::generate([
             'password' => 'password',
         ]);
+
+        $user->role = $role;
+        $user->save();
+
         $response = $this->post(route('auth.login'), [
             'email' => $user->email,
             'password' => 'password',

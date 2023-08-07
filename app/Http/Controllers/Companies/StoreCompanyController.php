@@ -9,6 +9,8 @@ class StoreCompanyController extends BaseCompanyController
 {
     public function __invoke(StoreCompanyRequest $request): JsonResponse
     {
+        $this->authorize('create', auth()->user());
+
         $company = $this->getCompaniesService()->store($request->getDTO());
 
         return response()->json($company);

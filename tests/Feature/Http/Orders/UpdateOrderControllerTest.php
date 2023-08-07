@@ -27,7 +27,39 @@ class UpdateOrderControllerTest extends TestCase
             ])
         );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
-            'cart_items' => json_encode($dto->getCartItems()),
+            'cart_items' => $dto->getCartItems(),
+            'company_id' => $dto->getCompanyId(),
+            'user_id' => $dto->getUserId(),
+            'deliveryType' => $dto->getDeliveryType(),
+            'deliveryTime' => $dto->getDeliveryTime(),
+            'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
+            'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $order = OrderGenerator::generate();
+        $dish = DishGenerator::generate();
+        $dto = UpdateOrderRequestDTO::fromArray(
+            OrderGenerator::updateOrderRequestDTOArrayGenerate([
+                'cart_items' => [
+                    [
+                        'id' => $dish->id,
+                        'count' => fake()->numberBetween(1, 20),
+                    ],
+                ],
+                'company_id' => $order->company_id,
+                'user_id' => $order->user_id,
+            ])
+        );
+        $response = $this->put(route('orders.update', ['order' => $order->id]), [
+            'cart_items' => $dto->getCartItems(),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -39,7 +71,7 @@ class UpdateOrderControllerTest extends TestCase
             'Accept' => 'application/json',
         ]);
 
-        $response->assertSuccessful();
+        $response->assertForbidden();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void
@@ -59,7 +91,7 @@ class UpdateOrderControllerTest extends TestCase
             ])
         );
         $response = $this->put(route('orders.update', ['order' => Random::generate(2, 'a-z')]), [
-            'cart_items' => json_encode($dto->getCartItems()),
+            'cart_items' => $dto->getCartItems(),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -67,7 +99,7 @@ class UpdateOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -84,7 +116,7 @@ class UpdateOrderControllerTest extends TestCase
             ])
         );
         $response = $this->put(route('orders.update', ['order' => $order->id]), [
-            'cart_items' => json_encode($dto->getCartItems()),
+            'cart_items' => $dto->getCartItems(),
             'company_id' => $dto->getCompanyId(),
             'user_id' => $dto->getUserId(),
             'deliveryType' => $dto->getDeliveryType(),
@@ -92,7 +124,7 @@ class UpdateOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

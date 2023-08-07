@@ -14,10 +14,22 @@ class DeleteDishControllerTest extends TestCase
         $response = $this->delete(route('dishes.delete', [
             'dish' => $dish->id,
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $dish = DishGenerator::generate();
+        $response = $this->delete(route('dishes.delete', [
+            'dish' => $dish->id,
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testDishDoesNotExistExpectsNoContent(): void
@@ -25,7 +37,7 @@ class DeleteDishControllerTest extends TestCase
         $response = $this->delete(route('dishes.delete', [
             'dish' => Random::generate(4, '1-9'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
@@ -36,7 +48,7 @@ class DeleteDishControllerTest extends TestCase
         $response = $this->delete(route('dishes.delete', [
             'dish' => Random::generate(2, 'a-z'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNotFound();

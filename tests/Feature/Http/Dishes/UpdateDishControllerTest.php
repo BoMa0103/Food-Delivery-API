@@ -25,11 +25,34 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $dish = DishGenerator::generate();
+        $dto = UpdateDishDTO::fromArray(
+            DishGenerator::updateDishDTOArrayGenerate([
+                'category_id' => $dish->category_id,
+                'package_id'  => $dish->package_id,
+            ])
+        );
+        $response = $this->put(route('dishes.update', ['dish' => $dish->id]), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void
@@ -48,7 +71,7 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -71,7 +94,7 @@ class UpdateDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

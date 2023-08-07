@@ -24,11 +24,32 @@ class StorePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $model = CompanyGenerator::generate();
+        $dto = StorePackageDTO::fromArray(
+            PackageGenerator::storePackageDTOArrayGenerate([
+                'company_id' => $model->id,
+            ])
+        );
+        $response = $this->post(route('packages.store'), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
@@ -43,7 +64,7 @@ class StorePackageControllerTest extends TestCase
             'description' => $dto->getDescription(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -62,7 +83,7 @@ class StorePackageControllerTest extends TestCase
             'description' => $dto->getDescription(),
             'company_id' => Random::generate(1, 'a-z'),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -82,7 +103,7 @@ class StorePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

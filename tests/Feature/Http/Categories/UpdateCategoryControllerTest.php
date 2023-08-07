@@ -21,11 +21,30 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $category = CategoryGenerator::generate();
+        $dto = UpdateCategoryDTO::fromArray(
+            CategoryGenerator::storeCategoryDTOArrayGenerate([
+                'company_id' => $category->company_id,
+            ])
+        );
+        $response = $this->put(route('categories.update', ['category' => $category->id]), [
+            'name' => $dto->getName(),
+            'company_id' => $dto->getCompanyId(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
@@ -39,7 +58,7 @@ class UpdateCategoryControllerTest extends TestCase
         $response = $this->put(route('categories.update', ['category' => $category->id]), [
             'name' => $dto->getName(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -58,7 +77,7 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -77,7 +96,7 @@ class UpdateCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

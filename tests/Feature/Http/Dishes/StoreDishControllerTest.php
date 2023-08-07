@@ -28,11 +28,35 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
         $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
+        $dto = StoreDishDTO::fromArray(
+            DishGenerator::storeDishDTOArrayGenerate([
+                'category_id' => $category->id,
+                'package_id'  => $package->id,
+            ])
+        );
+        $response = $this->post(route('dishes.store'), [
+            'name' => $dto->getName(),
+            'description' => $dto->getDescription(),
+            'price' => $dto->getPrice(),
+            'category_id' => $dto->getCategoryId(),
+            'package_id' => $dto->getPackageId(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
@@ -50,7 +74,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -72,7 +96,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => Random::generate(2, 'a-z'),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 
@@ -94,7 +118,7 @@ class StoreDishControllerTest extends TestCase
             'category_id' => $dto->getCategoryId(),
             'package_id' => $dto->getPackageId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
             'Accept' => 'application/json',
         ]);
 

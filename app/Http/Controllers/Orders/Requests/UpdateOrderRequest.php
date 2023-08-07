@@ -10,7 +10,9 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cart_items' => 'required|json',
+            'cart_items' => 'required|array',
+            'cart_items.*.id' => 'required|integer|exists:dishes,id',
+            'cart_items.*.count' => 'required|integer|max:100',
             'company_id' => 'required|integer|exists:companies,id',
             'user_id' => 'required|integer|exists:users,id',
             'deliveryType' => 'required|integer',
@@ -23,7 +25,7 @@ class UpdateOrderRequest extends FormRequest
     public function getDTO(): UpdateOrderRequestDTO
     {
         return UpdateOrderRequestDTO::fromArray([
-            'cart_items' => json_decode($this->validated('cart_items'), true),
+            'cart_items' => $this->validated('cart_items'),
             'company_id' => $this->validated('company_id'),
             'user_id' => $this->validated('user_id'),
             'deliveryType' => $this->validated('deliveryType'),

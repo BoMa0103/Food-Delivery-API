@@ -9,6 +9,8 @@ class DeleteCategoryController extends BaseCategoryController
 {
     public function __invoke(int $id): JsonResponse
     {
+        $this->authorize('delete', auth()->user());
+
         $this->getCategoriesService()->delete($id);
 
         return response()->json([

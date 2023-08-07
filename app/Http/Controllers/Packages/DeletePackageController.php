@@ -9,6 +9,8 @@ class DeletePackageController extends BasePackageController
 {
     public function __invoke(int $id): JsonResponse
     {
+        $this->authorize('delete', auth()->user());
+
         $this->getPackagesService()->delete($id);
 
         return response()->json([

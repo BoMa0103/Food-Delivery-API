@@ -14,10 +14,22 @@ class DeleteCategoryControllerTest extends TestCase
         $response = $this->delete(route('categories.delete', [
             'category' => $category->id,
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
+    }
+
+    public function testExpectsForbidden(): void
+    {
+        $category = CategoryGenerator::generate();
+        $response = $this->delete(route('categories.delete', [
+            'category' => $category->id,
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function testCategoryDoesNotExistExpectsNoContent(): void
@@ -25,7 +37,7 @@ class DeleteCategoryControllerTest extends TestCase
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(4, '1-9'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNoContent();
@@ -36,7 +48,7 @@ class DeleteCategoryControllerTest extends TestCase
         $response = $this->delete(route('categories.delete', [
             'category' => Random::generate(2, 'a-z'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
         ]);
 
         $response->assertNotFound();
