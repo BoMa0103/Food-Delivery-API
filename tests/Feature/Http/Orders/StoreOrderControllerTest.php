@@ -38,44 +38,11 @@ class StoreOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
-            'Accept' => 'application/json',
-        ]);
-
-        $response->assertSuccessful();
-    }
-
-    public function testExpectsForbidden(): void
-    {
-        $user = UserGenerator::generate();
-        $dish = DishGenerator::generate();
-        Log::info('sdf');
-        $dto = StoreOrderRequestDTO::fromArray(
-            OrderGenerator::storeOrderRequestDTOArrayGenerate([
-                'cart_items' => [
-                    [
-                        'id' => $dish->id,
-                        'count' => fake()->numberBetween(1, 20),
-                    ],
-                ],
-                'company_id' => $dish->category->company_id,
-                'user_id' => $user->id,
-            ])
-        );
-        $response = $this->post(route('orders.store'), [
-            'cart_items' => $dto->getCartItems(),
-            'company_id' => $dto->getCompanyId(),
-            'user_id' => $dto->getUserId(),
-            'deliveryType' => $dto->getDeliveryType(),
-            'deliveryTime' => $dto->getDeliveryTime(),
-            'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
-            'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
-        ], [
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
-        $response->assertForbidden();
+        $response->assertSuccessful();
     }
 
     public function testFieldDoesNotExistExpectsUnprocessable(): void
@@ -101,7 +68,7 @@ class StoreOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -133,7 +100,7 @@ class StoreOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -157,7 +124,7 @@ class StoreOrderControllerTest extends TestCase
             'deliveryAddressStreet' => $dto->getDeliveryAddressStreet(),
             'deliveryAddressHouse' => $dto->getDeliveryAddressHouse(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
             'Accept' => 'application/json',
         ]);
 
