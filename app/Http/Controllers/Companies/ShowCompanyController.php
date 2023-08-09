@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Companies;
 
+use App\Http\Resources\Companies\CompanyResource;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowCompanyController extends BaseCompanyController
 {
@@ -10,6 +12,12 @@ class ShowCompanyController extends BaseCompanyController
     {
         $company = $this->getCompaniesService()->find($id);
 
-        return response()->json($company);
+        if (!$company) {
+            return response()->json([
+                'message' => 'Company not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(new CompanyResource($company));
     }
 }

@@ -20,15 +20,15 @@ class ShowUserControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testEmptyAnswerExpectsSuccess(): void
+    public function testEmptyAnswerExpectsNotFound(): void
     {
         $response = $this->get(route('users.show', [
-            'user' => Random::generate(2, '0-9'),
+            'user' => Random::generate(4, '0-9'),
         ]), [
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
 
-        $response->assertSuccessful();
+        $response->assertNotFound();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void

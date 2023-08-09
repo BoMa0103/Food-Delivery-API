@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dishes;
 
 use App\Http\Controllers\Dishes\Requests\StoreDishRequest;
+use App\Http\Resources\Dishes\DishResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,6 +24,6 @@ class StoreDishController extends BaseDishController
             $request->getDTO()::fromArray($data)
         );
 
-        return response()->json($dish);
+        return response()->json(new DishResource($dish));
     }
 }

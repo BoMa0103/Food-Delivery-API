@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Users\UserResource;
+use Illuminate\Http\JsonResponse;
 
 class IndexUserController extends BaseUserController
 {
-    public function __invoke(): JsonResource
+    public function __invoke(): JsonResponse
     {
-        return UserResource::collection(User::all());
+        $users = UserResource::collection($this->getUsersService()->index());
+
+        return response()->json($users);
     }
 }

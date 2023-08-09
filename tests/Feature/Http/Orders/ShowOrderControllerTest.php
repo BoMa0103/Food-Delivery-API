@@ -20,7 +20,7 @@ class ShowOrderControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testEmptyAnswerExpectsSuccess(): void
+    public function testEmptyAnswerExpectsNotFound(): void
     {
         $response = $this->get(route('orders.show', [
             'order' => Random::generate(2, '0-9'),
@@ -28,7 +28,7 @@ class ShowOrderControllerTest extends TestCase
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
 
-        $response->assertSuccessful();
+        $response->assertNotFound();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void

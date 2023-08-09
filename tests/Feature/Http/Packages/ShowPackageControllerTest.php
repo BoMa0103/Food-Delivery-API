@@ -3,16 +3,16 @@
 namespace Tests\Feature\Http\Packages;
 
 use Nette\Utils\Random;
-use Tests\Generators\CategoryGenerator;
+use Tests\Generators\PackageGenerator;
 use Tests\TestCase;
 
 class ShowPackageControllerTest extends TestCase
 {
     public function testExpectsSuccess(): void
     {
-        $category = CategoryGenerator::generate();
+        $package = PackageGenerator::generate();
         $response = $this->get(route('packages.show', [
-            'package' => $category->id,
+            'package' => $package->id,
         ]), [
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
@@ -20,15 +20,15 @@ class ShowPackageControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testEmptyAnswerExpectsSuccess(): void
+    public function testEmptyAnswerExpectsNotFound(): void
     {
         $response = $this->get(route('packages.show', [
-            'package' => Random::generate(2, '0-9'),
+            'package' => Random::generate(4, '0-9'),
         ]), [
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
 
-        $response->assertSuccessful();
+        $response->assertNotFound();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void

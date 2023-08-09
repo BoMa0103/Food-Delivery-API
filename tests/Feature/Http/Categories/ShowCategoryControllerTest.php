@@ -20,7 +20,7 @@ class ShowCategoryControllerTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function testEmptyAnswerExpectsSuccess(): void
+    public function testEmptyAnswerExpectsNotFound(): void
     {
         $response = $this->get(route('categories.show', [
             'category' => Random::generate(2, '0-9'),
@@ -28,7 +28,7 @@ class ShowCategoryControllerTest extends TestCase
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
 
-        $response->assertSuccessful();
+        $response->assertNotFound();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Dishes;
 
+use App\Http\Resources\Dishes\DishResource;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowDishController extends BaseDishController
 {
@@ -10,6 +12,12 @@ class ShowDishController extends BaseDishController
     {
         $dish = $this->getDishesService()->find($id);
 
-        return response()->json($dish);
+        if (!$dish) {
+            return response()->json([
+                'message' => 'Dish not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(new DishResource($dish));
     }
 }

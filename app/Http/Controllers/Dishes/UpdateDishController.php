@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dishes;
 
 use App\Http\Controllers\Dishes\Requests\UpdateDishRequest;
+use App\Http\Resources\Dishes\DishResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateDishController extends BaseDishController
 {
@@ -13,6 +15,12 @@ class UpdateDishController extends BaseDishController
         $this->authorize('update', auth()->user());
 
         $dish = $this->getDishesService()->find($id);
+
+        if (!$dish) {
+            return response()->json([
+                'message' => 'Dish not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
 
         $data = $request->getDTO()->toArray();
 
@@ -23,6 +31,6 @@ class UpdateDishController extends BaseDishController
 
         $dish = $this->getDishesService()->update($dish, $request->getDTO()::fromArray($data));
 
-        return response()->json($dish);
+        return response()->json(new DishResource($dish));
     }
 }

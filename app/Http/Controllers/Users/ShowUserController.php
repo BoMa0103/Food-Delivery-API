@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Users;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Resources\Users\UserResource;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowUserController extends BaseUserController
 {
@@ -11,6 +12,12 @@ class ShowUserController extends BaseUserController
     {
         $user = $this->getUsersService()->find($id);
 
-        return response()->json($user);
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(new UserResource($user));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Packages;
 
 use App\Http\Controllers\Packages\Requests\StorePackageRequest;
+use App\Http\Resources\Packages\PackageResource;
 use Illuminate\Http\JsonResponse;
 
 class StorePackageController extends BasePackageController
@@ -13,6 +14,7 @@ class StorePackageController extends BasePackageController
 
         $package = $this->getPackagesService()->store($request->getDTO());
 
-        return response()->json($package);
+        return response()->json(new PackageResource($package));
+
     }
 }

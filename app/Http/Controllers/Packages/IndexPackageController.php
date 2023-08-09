@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Packages;
 
+use App\Http\Resources\Packages\PackageResource;
 use Illuminate\Http\JsonResponse;
 
 class IndexPackageController extends BasePackageController
 {
     public function __invoke(): JsonResponse
     {
-        $orders = $this->getPackagesService()->index();
+        $packages = PackageResource::collection($this->getPackagesService()->index());
 
-        return response()->json($orders);
+        return response()->json($packages);
     }
 }

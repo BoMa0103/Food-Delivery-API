@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class ShowCompanyControllerTest extends TestCase
 {
-    public function testExpectsSuccess(): void
+    public function testExpectsNotFound(): void
     {
         $company = CompanyGenerator::generate();
         $response = $this->get(route('companies.show', [
@@ -23,12 +23,12 @@ class ShowCompanyControllerTest extends TestCase
     public function testEmptyAnswerExpectsSuccess(): void
     {
         $response = $this->get(route('companies.show', [
-            'company' => Random::generate(2, '0-9'),
+            'company' => Random::generate(4, '0-9'),
         ]), [
             'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
         ]);
 
-        $response->assertSuccessful();
+        $response->assertNotFound();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void

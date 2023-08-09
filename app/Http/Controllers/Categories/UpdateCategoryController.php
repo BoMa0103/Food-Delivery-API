@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Categories;
 
 use App\Http\Controllers\Categories\Requests\UpdateCategoryRequest;
+use App\Http\Resources\Categories\CategoryResource;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateCategoryController extends BaseCategoryController
 {
@@ -12,8 +14,15 @@ class UpdateCategoryController extends BaseCategoryController
         $this->authorize('update', auth()->user());
 
         $category = $this->getCategoriesService()->find($id);
-        $category = $this->getCategoriesService()->update($category, $request->getDTO());
 
-        return response()->json($category);
+        if (!$category) {
+            return response()->json([
+                'message' => 'Category not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $company = $this->getCategoriesService()->update($category, $request->getDTO());
+
+        return response()->json(new CategoryResource($category));
     }
 }
