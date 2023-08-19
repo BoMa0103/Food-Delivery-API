@@ -3,9 +3,8 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
-class AdminPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -26,9 +25,9 @@ class AdminPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, User $model): bool
     {
-        return $user->role === 'admin';
+        //
     }
 
     /**
@@ -36,7 +35,7 @@ class AdminPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->role === 'admin';
+        return $user->role === User::ADMIN || $user->id === $model->id;
     }
 
     /**
@@ -44,15 +43,15 @@ class AdminPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->role === 'admin';
+        return $user->role === User::ADMIN || $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, User $model): bool
+    public function restore(User $user): bool
     {
-        return $user->role === 'admin';
+        //
     }
 
     /**
@@ -61,5 +60,10 @@ class AdminPolicy
     public function forceDelete(User $user, User $model): bool
     {
         //
+    }
+
+    public function adminRightsCheck(User $user): bool
+    {
+        return $user->role === 'admin';
     }
 }

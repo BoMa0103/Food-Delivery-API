@@ -11,7 +11,7 @@ class UpdateOrderController extends BaseOrderController
 {
     public function __invoke(UpdateOrderRequest $request, int $id): JsonResponse
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('adminRightsCheck', auth()->user());
 
         $order = $this->getOrdersService()->find($id);
 

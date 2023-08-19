@@ -11,7 +11,7 @@ class UpdateCompanyController extends BaseCompanyController
 {
     public function __invoke(UpdateCompanyRequest $request, int $id): JsonResponse
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('adminRightsCheck', auth()->user());
 
         $company = $this->getCompaniesService()->find($id);
 

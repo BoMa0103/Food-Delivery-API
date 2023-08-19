@@ -22,7 +22,7 @@ class StoreCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -59,7 +59,7 @@ class StoreCategoryControllerTest extends TestCase
         $response = $this->post(route('categories.store'), [
             'name' => $dto->getName(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -78,7 +78,7 @@ class StoreCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => Random::generate(1, 'a-z'),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -96,7 +96,7 @@ class StoreCategoryControllerTest extends TestCase
             'name' => $dto->getName(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 

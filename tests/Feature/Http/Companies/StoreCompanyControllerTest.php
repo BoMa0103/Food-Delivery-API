@@ -21,7 +21,7 @@ class StoreCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -58,7 +58,7 @@ class StoreCompanyControllerTest extends TestCase
             'rating' => $dto->getRating(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -77,7 +77,7 @@ class StoreCompanyControllerTest extends TestCase
             'status' => $dto->getStatus(),
             'description' => $dto->getDescription(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 

@@ -12,7 +12,7 @@ class UpdateDishController extends BaseDishController
 {
     public function __invoke(UpdateDishRequest $request, int $id): JsonResponse
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('adminRightsCheck', auth()->user());
 
         $dish = $this->getDishesService()->find($id);
 

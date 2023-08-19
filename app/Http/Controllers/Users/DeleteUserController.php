@@ -9,7 +9,15 @@ class DeleteUserController extends BaseUserController
 {
     public function __invoke(int $id): JsonResponse
     {
-        $this->authorize('delete', auth()->user());
+        $user = $this->getUsersService()->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'message' => 'ok',
+            ], Response::HTTP_NO_CONTENT);
+        }
+
+        $this->authorize('delete', $user);
 
         $this->getUsersService()->delete($id);
 

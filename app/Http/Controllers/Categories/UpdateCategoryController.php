@@ -11,7 +11,7 @@ class UpdateCategoryController extends BaseCategoryController
 {
     public function __invoke(UpdateCategoryRequest $request, int $id): JsonResponse
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('adminRightsCheck', auth()->user());
 
         $category = $this->getCategoriesService()->find($id);
 

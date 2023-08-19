@@ -19,6 +19,8 @@ class UpdateUserController extends BaseUserController
             ], Response::HTTP_NOT_FOUND);
         }
 
+        $this->authorize('update', $user);
+
         $user = $this->getUsersService()->update($user, $request->getDTO());
 
         return response()->json(new UserResource($user));

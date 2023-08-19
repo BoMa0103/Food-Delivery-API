@@ -9,7 +9,47 @@ use Tests\TestCase;
 
 class UpdateUserControllerTest extends TestCase
 {
-    public function testExpectsSuccess(): void
+    public function testExpectsSuccessWithAdmin(): void
+    {
+        $user = UserGenerator::generate();
+        $dto = UpdateUserDTO::fromArray(
+            UserGenerator::updateUserDTOArrayGenerate()
+        );
+        $response = $this->put(route('users.update', ['user' => $user->id]), [
+            'name' => $dto->getName(),
+            'email' => $dto->getEmail(),
+            'password' => $dto->getPassword(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertSuccessful();
+    }
+
+    public function testExpectsSuccessWithUserOwner(): void
+    {
+        $user = UserGenerator::generate([
+            'password' => 'password',
+        ]);
+
+        $dto = UpdateUserDTO::fromArray(
+            UserGenerator::updateUserDTOArrayGenerate()
+        );
+
+        $response = $this->put(route('users.update', ['user' => $user->id]), [
+            'name' => $dto->getName(),
+            'email' => $dto->getEmail(),
+            'password' => $dto->getPassword(),
+        ], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken($user),
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertSuccessful();
+    }
+
+    public function testExpectsForbidden(): void
     {
         $user = UserGenerator::generate();
         $dto = UpdateUserDTO::fromArray(
@@ -24,7 +64,7 @@ class UpdateUserControllerTest extends TestCase
             'Accept' => 'application/json',
         ]);
 
-        $response->assertSuccessful();
+        $response->assertForbidden();
     }
 
     public function testIdIsNotIntExpectsNotFound(): void
@@ -37,7 +77,7 @@ class UpdateUserControllerTest extends TestCase
             'email' => $dto->getEmail(),
             'password' => $dto->getPassword(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken(),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 

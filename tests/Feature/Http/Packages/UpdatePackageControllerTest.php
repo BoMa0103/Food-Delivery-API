@@ -23,7 +23,7 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -65,7 +65,7 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 
@@ -86,7 +86,7 @@ class UpdatePackageControllerTest extends TestCase
             'price' => $dto->getPrice(),
             'company_id' => $dto->getCompanyId(),
         ], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
             'Accept' => 'application/json',
         ]);
 

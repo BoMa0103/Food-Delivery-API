@@ -52,6 +52,9 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const USER = 'user';
+    const ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *

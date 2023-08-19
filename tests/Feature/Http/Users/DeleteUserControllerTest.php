@@ -10,11 +10,28 @@ class DeleteUserControllerTest extends TestCase
 {
     public function testExpectsNoContent(): void
     {
-        $package = UserGenerator::generate();
+        $user = UserGenerator::generate();
+
         $response = $this->delete(route('users.delete', [
-            'user' => $package->id,
+            'user' => $user->id,
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
+        ]);
+
+        $response->assertNoContent();
+    }
+
+    public function testExpectsNoContentWithUserOwner(): void
+    {
+        $user = UserGenerator::generate([
+            'password' => 'password',
+        ]);
+
+        $response = $this->delete(route('users.delete', [
+            'user' => $user->id,
+        ]), [], [
+            'Authorization' => 'Bearer ' . $this->generateUserBearerToken($user),
+            'Accept' => 'application/json',
         ]);
 
         $response->assertNoContent();
@@ -37,7 +54,8 @@ class DeleteUserControllerTest extends TestCase
         $response = $this->delete(route('users.delete', [
             'user' => Random::generate(4, '1-9'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
+            'Accept' => 'application/json',
         ]);
 
         $response->assertNoContent();
@@ -46,9 +64,9 @@ class DeleteUserControllerTest extends TestCase
     public function testIdIsNotIntExpectsNotFound(): void
     {
         $response = $this->delete(route('users.delete', [
-            'user' => Random::generate(2, 'a-z'),
+            'user' => Random::generate(4, 'a-z'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
         ]);
 
         $response->assertNotFound();

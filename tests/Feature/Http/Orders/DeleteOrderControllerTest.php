@@ -14,7 +14,7 @@ class DeleteOrderControllerTest extends TestCase
         $response = $this->delete(route('orders.delete', [
             'order' => $order->id,
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
         ]);
 
         $response->assertNoContent();
@@ -37,7 +37,7 @@ class DeleteOrderControllerTest extends TestCase
         $response = $this->delete(route('orders.delete', [
             'order' => Random::generate(4, '1-9'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
         ]);
 
         $response->assertNoContent();
@@ -48,7 +48,7 @@ class DeleteOrderControllerTest extends TestCase
         $response = $this->delete(route('orders.delete', [
             'order' => Random::generate(2, 'a-z'),
         ]), [], [
-            'Authorization' => 'Bearer ' . $this->generateUserBearerToken('admin'),
+            'Authorization' => 'Bearer ' . $this->generateAdminBearerToken(),
         ]);
 
         $response->assertNotFound();
